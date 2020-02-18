@@ -19,6 +19,7 @@
                 "src/wolf/import/_3dformats/objfileparser.cpp",
                 "src/wolf/import/_3dformats/mtlfileparser.cpp",
                 "src/wolf/import/_3dformats/_3dfileparser.cpp",
+                "src/wolf/import/wavefrontutils.cpp",
                 "-o",
                 "example.out",
                 "--debug",
