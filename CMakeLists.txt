@@ -6,7 +6,7 @@ set(CMAKE_VERBOSE_MAKEFILE TRUE)
 
 add_subdirectory(src)
 add_executable(wolfimportexample example.cpp)
-target_link_libraries(wolfimportexample PRIVATE LibWolfImporter)
+target_link_libraries(wolfimportexample PRIVATE WolfImporter)
 target_include_directories(wolfimportexample PRIVATE
 	include/)
 
