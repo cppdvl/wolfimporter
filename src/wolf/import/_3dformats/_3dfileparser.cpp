@@ -12,8 +12,7 @@ std::map<std::string, std::vector<float>> Wolf::_3DFormats::_3DFileParser::DumpC
     auto exitWithMessage = [&](const std::string& message, const std::string& elem){
         std::cout << __func__ << " : " << message << elem << std::endl;
         std::exit(-1);
-    };
-    auto objectfound = objectname__shadername_vtn.find(objectname) != objectname__shadername_vtn.end();
+    }; auto objectfound = objectname__shadername_vtn.find(objectname) != objectname__shadername_vtn.end();
     if (!objectfound) exitWithMessage("Object not found: ", objectname);
 	return objectname__shadername_vtn[objectname];
 }
@@ -48,4 +47,17 @@ void Wolf::_3DFormats::_3DFileParser::DumpCode(std::string nameoftheobject, std:
 	}
 }
 
+Wolf::_3DFormats::_3DMaterial Wolf::_3DFormats::_3DFileParser::DumpMaterialInformation(std::string libraryname, std::string materialname){
 
+    auto exitWithMessage = [&](const std::string& message, const std::string& elem){
+        std::cout << __func__ << " : " << message << elem << std::endl;
+        std::exit(-1);
+    };
+    auto libraryfound = matlibraryname__matname_mat.find(libraryname) != matlibraryname__matname_mat.end();
+    if (!libraryfound) exitWithMessage("Library not found: ", libraryname);
+    auto &library = matlibraryname__matname_mat[libraryname];
+    auto materialfound = library.find(materialname) != library.end();
+    if (materialfound) exitWithMessage("Materialname not found: ", materialname);
+    return library[materialname];
+    
+}

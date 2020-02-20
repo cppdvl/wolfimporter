@@ -12,13 +12,14 @@ namespace Wolf {
     namespace _3DFormats {
             
             class _3DMaterial {
-            
+                
             public:
                 std::vector<float> ka{}, ks{}, kd{}, ke{}; //Ambient, Specularity, Diffuse, Emissive 
                 float opacity;	
                 float specularExponent; //Ns
                 float opticalDensity; //Ni
-            
+                std::string texturefile;  
+
             };
             
             class _3DMaterialLibraryFile : public _File {

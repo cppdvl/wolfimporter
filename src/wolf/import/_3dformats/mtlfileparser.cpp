@@ -6,7 +6,7 @@
 bool Wolf::_3DFormats::MTLFileParser::Serialize() {
 
     enum wavefrontstate {
-        none, newmtl, Ns, Ka, Kd, Ks, Ke, Ni, d, illum
+        none, newmtl, Ns, Ka, Kd, Ks, Ke, Ni, d, illum, map_Kd
     };
     auto state = none;
     std::string nameofthematerial{};
@@ -20,7 +20,8 @@ bool Wolf::_3DFormats::MTLFileParser::Serialize() {
         std::make_pair("Ke", Ke),
         std::make_pair("Ni", Ni),
         std::make_pair("d", d),
-        std::make_pair("illum", illum)
+        std::make_pair("illum", illum),
+        std::make_pair("map_Kd", map_Kd)
     };
 
     for (auto&line:lines){
@@ -52,6 +53,8 @@ bool Wolf::_3DFormats::MTLFileParser::Serialize() {
             rMaterial.opacity = Wolf::StringUtils::parse<float>(commandStringVector[1]);
         } else if ( state == illum){
             continue;
+        } else if ( state == map_Kd){
+            rMaterial.texturefile = commandStringVector[1];
         }
     }
 	return true;

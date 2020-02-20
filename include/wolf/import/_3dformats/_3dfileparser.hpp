@@ -20,6 +20,9 @@ namespace Wolf {
                 //Get Vertex Buffer Object Map. 
                 std::map<std::string, std::vector<float>> DumpCodeVectorMap(std::string);
                 
+                //Get Material Info
+                Wolf::_3DFormats::_3DMaterial DumpMaterialInformation(std::string, std::string);
+
                 //Parse the format.
                 virtual bool Serialize() = 0;
                 
