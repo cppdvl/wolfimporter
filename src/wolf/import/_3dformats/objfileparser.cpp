@@ -42,30 +42,30 @@ bool Wolf::_3DFormats::OBJFileParser::Serialize()  {
 		
 		if (state == mtllib) {
 			
-                
+		    nameofthemateriallibrary = commandStringVector[1];
 	        auto pMaterialFileParser = std::make_unique<MTLFileParser>(commandStringVector[1]);
             pMaterialFileParser->Serialize();
             
             matlibraryname__matname_mat[nameofthemateriallibrary] = pMaterialFileParser->materialname_material;
 
         }
-		if (state == o)  {
+		else if (state == o)  {
 			
 			nameoftheobject = commandStringVector[1];
 			objectname__shadername_vtn[nameoftheobject] = std::map<std::string, std::vector<float>>{};
 			
 		}
-		if (state == usemtl){
+		else if (state == usemtl){
 			nameoftheshader = nameofthemateriallibrary + "/" + commandStringVector[1];
 			objectname__shadername_vtn[nameoftheobject][nameoftheshader] = std::vector<float>{};
 		}
-		if (state == v)  
+		else if (state == v)
 			Wolf::VectorUtils::pushvectorf(vertices, commandString, 3);
-		if (state == vn) 
+		else if (state == vn)
 			Wolf::VectorUtils::pushvectorf(vnormals, commandString, 3);
-		if (state == vt) 
+		else if (state == vt)
 			Wolf::VectorUtils::pushvectorf(texcoord, commandString, 2);
-		if (state == f){
+		else if (state == f){
 			
 			std::vector<unsigned int> vtxindexes{};
 			std::vector<unsigned int> txcindexes{};

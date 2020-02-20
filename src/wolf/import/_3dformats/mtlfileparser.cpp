@@ -12,7 +12,7 @@ bool Wolf::_3DFormats::MTLFileParser::Serialize() {
     std::string nameofthematerial{};
     std::string nameofthetexture{};
     std::map<std::string, wavefrontstate> linetype_state{
-        std::make_pair("newmtrl", newmtl),
+        std::make_pair("newmtl", newmtl),
         std::make_pair("Ns", Ns),
         std::make_pair("Ka", Ka),
         std::make_pair("Kd", Kd),
@@ -27,6 +27,7 @@ bool Wolf::_3DFormats::MTLFileParser::Serialize() {
         if (line.empty())continue;
         auto commandStringVector = Wolf::StringUtils::split(line, ' ');
         state = linetype_state[commandStringVector[0]];
+        if (state == none) continue;
         auto commandString = Wolf::StringUtils::join(commandStringVector, ' ', 1);
         if ( state == newmtl){
             nameofthematerial = commandStringVector[1];
