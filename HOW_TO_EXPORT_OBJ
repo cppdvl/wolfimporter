@@ -1,0 +1,25 @@
+Select:
+Objects as OBJ Objects
+Scale :1.00
+Path Mode: Auto
+Forward: -Z Forward
+Up: Y Up
+Apply Modifiers
+Write Normals
+Include UVs
+Write Materials
+Triangulate Faces
+
+This will produce a coordinate system like this:
+
+Right Hand thumb: X+
+Index: Y+
+Middle Finger: Z+ towards observer!
+
+Index Y+
+^
+|
+. - > Thumb X+
+
+Heart Coming at You Z+
+
