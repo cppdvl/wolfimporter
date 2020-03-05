@@ -7,6 +7,11 @@
 
 #include "wolf/import/_3dformats/file.hpp"
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+
 namespace Wolf {
 
     namespace _3DFormats {
@@ -14,10 +19,8 @@ namespace Wolf {
             class _3DMaterial {
                 
             public:
-                std::vector<float> ka{}, ks{}, kd{}, ke{}; //Ambient, Specularity, Diffuse, Emissive 
-                float opacity;	
-                float specularExponent; //Ns
-                float opticalDensity; //Ni
+                glm::vec3 ka{}, ks{}, kd{}, ke{}; //Ambient, Specularity, Diffuse, Emissive 
+                glm::vec3 op_se_od; //float opacity;float specularExponent; //Ns float opticalDensity; //Ni
                 std::string texturefile;  
 
             };

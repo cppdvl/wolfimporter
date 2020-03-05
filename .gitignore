@@ -2,5 +2,4 @@
 *.blend1
 *.out
 .idea/
-build/
 cmake-build-debug/

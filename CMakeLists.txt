@@ -5,10 +5,12 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_VERBOSE_MAKEFILE TRUE)
 
 add_subdirectory(src)
+add_subdirectory(Vendor/glm)
 add_executable(wolfimportexample example.cpp)
 target_link_libraries(wolfimportexample PRIVATE WolfImporter)
 target_include_directories(wolfimportexample PRIVATE
-	include/)
+	include/
+    Vendor/glm)
 
 add_custom_command(
     TARGET ${PROJECT_NAME} POST_BUILD

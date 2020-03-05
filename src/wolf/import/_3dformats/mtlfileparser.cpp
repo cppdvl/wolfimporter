@@ -2,7 +2,6 @@
 #include "wolf/vectorutils.hpp"
 #include "wolf/import/_3dformats/mtlfileparser.hpp"
 
-
 bool Wolf::_3DFormats::MTLFileParser::Serialize() {
 
     enum wavefrontstate {
@@ -24,6 +23,7 @@ bool Wolf::_3DFormats::MTLFileParser::Serialize() {
         std::make_pair("map_Kd", map_Kd)
     };
 
+
     for (auto&line:lines){
         if (line.empty())continue;
         auto commandStringVector = Wolf::StringUtils::split(line, ' ');
@@ -38,19 +38,19 @@ bool Wolf::_3DFormats::MTLFileParser::Serialize() {
         auto& rMaterial = materialname_material[nameofthematerial];
 
         if (state == Ns){
-            rMaterial.specularExponent = Wolf::StringUtils::parse<float>(commandStringVector[1]);
+            rMaterial.op_se_od.y = Wolf::StringUtils::parse<float>(commandStringVector[1]);
         } else if ( state == Ka){
-            Wolf::VectorUtils::pushvectorf(rMaterial.ka, commandString, 3);
+            Wolf::VectorUtils::pushvectorf(rMaterial.ka, commandString);
         } else if ( state == Kd){
-            Wolf::VectorUtils::pushvectorf(rMaterial.kd, commandString, 3);
+            Wolf::VectorUtils::pushvectorf(rMaterial.kd, commandString);
         } else if ( state == Ks){
-            Wolf::VectorUtils::pushvectorf(rMaterial.ks, commandString, 3);
+            Wolf::VectorUtils::pushvectorf(rMaterial.ks, commandString);
         } else if ( state == Ke){
-            Wolf::VectorUtils::pushvectorf(rMaterial.ke, commandString, 3);
+            Wolf::VectorUtils::pushvectorf(rMaterial.ke, commandString);
         } else if ( state == Ni){
-            rMaterial.opticalDensity = Wolf::StringUtils::parse<float>(commandStringVector[1]);
+            rMaterial.op_se_od.z = Wolf::StringUtils::parse<float>(commandStringVector[1]);
         } else if ( state == d){
-            rMaterial.opacity = Wolf::StringUtils::parse<float>(commandStringVector[1]);
+            rMaterial.op_se_od.x = Wolf::StringUtils::parse<float>(commandStringVector[1]);
         } else if ( state == illum){
             continue;
         } else if ( state == map_Kd){

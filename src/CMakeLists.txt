@@ -15,6 +15,7 @@ add_library(WolfImporter
 )
 target_include_directories(WolfImporter PRIVATE 
 	../include/
+	../Vendor/glm
 )
 
 
