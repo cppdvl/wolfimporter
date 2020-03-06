@@ -57,7 +57,7 @@ Wolf::_3DFormats::_3DMaterial Wolf::_3DFormats::_3DFileParser::DumpMaterialInfor
     if (!libraryfound) exitWithMessage("Library not found: ", libraryname);
     auto &library = matlibraryname__matname_mat[libraryname];
     auto materialfound = library.find(materialname) != library.end();
-    if (materialfound) exitWithMessage("Materialname not found: ", materialname);
+    if (!materialfound) exitWithMessage("Materialname not found: ", materialname);
     return library[materialname];
     
 }

@@ -19,6 +19,7 @@ namespace Wolf {
             class _3DMaterial {
                 
             public:
+
                 glm::vec3 ka{}, ks{}, kd{}, ke{}; //Ambient, Specularity, Diffuse, Emissive 
                 glm::vec3 op_se_od; //float opacity;float specularExponent; //Ns float opticalDensity; //Ni
                 std::string texturefile;  

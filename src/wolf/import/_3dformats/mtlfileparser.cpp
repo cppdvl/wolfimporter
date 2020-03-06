@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "wolf/stringutils.hpp"
 #include "wolf/vectorutils.hpp"
 #include "wolf/import/_3dformats/mtlfileparser.hpp"
@@ -31,7 +33,7 @@ bool Wolf::_3DFormats::MTLFileParser::Serialize() {
         if (state == none) continue;
         auto commandString = Wolf::StringUtils::join(commandStringVector, ' ', 1);
         if ( state == newmtl){
-            nameofthematerial = commandStringVector[1];
+            nameofthematerial = mtlfilename + "/" + commandStringVector[1];
             materialname_material[nameofthematerial] = _3DMaterial{};
             continue;
         } 
@@ -43,6 +45,7 @@ bool Wolf::_3DFormats::MTLFileParser::Serialize() {
             Wolf::VectorUtils::pushvectorf(rMaterial.ka, commandString);
         } else if ( state == Kd){
             Wolf::VectorUtils::pushvectorf(rMaterial.kd, commandString);
+            std::cout << "Kd Parsing: " << rMaterial.kd.x << " " << rMaterial.kd.y << " " << rMaterial.kd.z << std::endl;
         } else if ( state == Ks){
             Wolf::VectorUtils::pushvectorf(rMaterial.ks, commandString);
         } else if ( state == Ke){
