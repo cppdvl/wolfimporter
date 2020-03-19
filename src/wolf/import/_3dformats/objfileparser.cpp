@@ -20,7 +20,7 @@ bool Wolf::_3DFormats::OBJFileParser::Serialize()  {
     
     auto state = none;
     std::string nameofthegame{};
-    std::string nameofthemateriallibrary{};
+    std::string nameOfMaterialLibrary{};
     std::string nameoftheobject{};
     std::string nameoftheshader{};
     std::map<std::string, wavefrontstate> linetype_state{
@@ -37,16 +37,19 @@ bool Wolf::_3DFormats::OBJFileParser::Serialize()  {
         
         if (line.empty()) continue;
         auto commandStringVector = Wolf::StringUtils::split(line,' ');
+        auto keyFound = linetype_state.find(commandStringVector[0]) != linetype_state.end();
+        
+        if (!keyFound) continue;
+        
         state = linetype_state[commandStringVector[0]];
         auto commandString = Wolf::StringUtils::join(commandStringVector,' ', 1);
-        
         if (state == mtllib) {
             
-            nameofthemateriallibrary = commandStringVector[1];
-            auto materialFileParser = MTLFileParser(commandStringVector[1]);
+            auto matlibraryname = FolderPath() + commandStringVector[1];
+            auto materialFileParser = MTLFileParser(matlibraryname);
             auto materialOk = materialFileParser.Serialize();
-            std::cout << "Material: " << nameofthemateriallibrary <<" is  " << (materialOk?"ok":"fucked") << std::endl;
-            matlibraryname__matname_mat[nameofthemateriallibrary] = materialFileParser.materialname_material;
+            std::cout << "Material: " << FolderPath() + commandStringVector[1] <<" is  " << (materialOk?"ok":"fucked") << std::endl;
+            matlibraryname__matname_mat[matlibraryname] = materialFileParser.materialname_material;
 
         }
 
@@ -57,7 +60,7 @@ bool Wolf::_3DFormats::OBJFileParser::Serialize()  {
             
         }
         else if (state == usemtl){
-            nameoftheshader = nameofthemateriallibrary + "/" + commandStringVector[1];
+            nameoftheshader = commandStringVector[1];
             objectname__shadername_vtn[nameoftheobject][nameoftheshader] = std::vector<float>{};
         }
         else if (state == v)

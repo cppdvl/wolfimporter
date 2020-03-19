@@ -33,7 +33,7 @@ bool Wolf::_3DFormats::MTLFileParser::Serialize() {
         if (state == none) continue;
         auto commandString = Wolf::StringUtils::join(commandStringVector, ' ', 1);
         if ( state == newmtl){
-            nameofthematerial = mtlfilename + "/" + commandStringVector[1];
+            nameofthematerial = commandStringVector[1];
             materialname_material[nameofthematerial] = _3DMaterial{};
             continue;
         } 

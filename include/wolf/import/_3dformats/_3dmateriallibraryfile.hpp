@@ -28,7 +28,8 @@ namespace Wolf {
             
             class _3DMaterialLibraryFile : public _File {
             public:
-                _3DMaterialLibraryFile(const std::string& rrelpath) : Wolf::_3DFormats::_File(rrelpath){}
+                _3DMaterialLibraryFile(const std::string& rrelpath, const std::string& filename) : Wolf::_3DFormats::_File(rrelpath, filename){}
+                _3DMaterialLibraryFile(const std::string& rrelpath) : Wolf::_3DFormats::_File(rrelpath) {}
                 std::map<std::string, _3DMaterial> materialname_material{};
                 virtual bool Serialize() = 0;
                     

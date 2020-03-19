@@ -3,13 +3,12 @@
 #include <string>
 #include <fstream>
 #include <filesystem>
-namespace fs = std::filesystem;
 namespace Wolf {
     namespace FileSystemUtils {
 
         std::ifstream open(const std::string& rrelpath);
         void close(std::ifstream& rifp);
-    
+        std::string filename(std::string& s) { return std::filesystem::absolute(s).string(); }
     }
 }
 
