@@ -23,7 +23,7 @@ namespace Wolf {
         };
         template <typename S, typename I>
         
-        class RenderablePrimitives {
+        class Primitives {
         protected:
             FWSHDR__FWVAO_T<S,I> _submittedPrimitives;
         public:
