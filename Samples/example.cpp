@@ -3,7 +3,7 @@
 #include <iostream>
 #include <algorithm>
 
-#include "wolf/maputils.hpp"
+#include "wolf/utils/maputils.hpp"
 #include "wolf/import/_3dformats/objfileparser.hpp"
 
 namespace fs = std::filesystem;

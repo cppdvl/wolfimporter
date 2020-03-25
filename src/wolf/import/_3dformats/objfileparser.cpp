@@ -1,8 +1,8 @@
 #include <iostream>
 
-#include "wolf/stringutils.hpp"
-#include "wolf/vectorutils.hpp"
-#include "wolf/import/wavefrontutils.hpp"
+#include "wolf/utils/stringutils.hpp"
+#include "wolf/utils/vectorutils.hpp"
+#include "wolf/utils/wavefrontutils.hpp"
 #include "wolf/import/_3dformats/objfileparser.hpp"
 #include "wolf/import/_3dformats/mtlfileparser.hpp"
 bool Wolf::_3DFormats::OBJFileParser::Serialize()  {

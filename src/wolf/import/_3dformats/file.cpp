@@ -1,7 +1,7 @@
 #include <array>
 #include <fstream>
 #include <iostream>
-#include "wolf/filesystemutils.hpp"
+#include "wolf/utils/filesystemutils.hpp"
 #include "wolf/import/_3dformats/file.hpp"
 
 

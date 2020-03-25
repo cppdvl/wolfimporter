@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "wolf/stringutils.hpp"
-#include "wolf/vectorutils.hpp"
+#include "wolf/utils/stringutils.hpp"
+#include "wolf/utils/vectorutils.hpp"
 #include "wolf/import/_3dformats/mtlfileparser.hpp"
 
 bool Wolf::_3DFormats::MTLFileParser::Serialize() {

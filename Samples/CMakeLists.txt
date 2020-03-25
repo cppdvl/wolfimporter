@@ -4,13 +4,20 @@ project(wolfimportexample VERSION 0.1.0)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_VERBOSE_MAKEFILE TRUE)
 
-add_subdirectory(src)
-add_subdirectory(Vendor/glm)
-add_executable(wolfimportexample example.cpp)
-target_link_libraries(wolfimportexample PRIVATE WolfImporter)
+add_executable(wolfimportexample example.cpp
+    ../src/wolf/filesystemutils.cpp
+    ../src/wolf/import/_3dformats/_3dfileparser.cpp
+    ../src/wolf/import/_3dformats/file.cpp
+    ../src/wolf/import/_3dformats/mtlfileparser.cpp
+    ../src/wolf/import/_3dformats/objfileparser.cpp
+    ../src/wolf/import/wavefrontutils.cpp
+    ../src/wolf/maputils.cpp
+    ../src/wolf/stringutils.cpp
+    ../src/wolf/vectorutils.cpp
+)
 target_include_directories(wolfimportexample PRIVATE
-	include/
-    Vendor/glm)
+	../include
+    ../Vendor/glm)
 
 add_custom_command(
     TARGET ${PROJECT_NAME} POST_BUILD
