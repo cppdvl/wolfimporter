@@ -12,7 +12,14 @@ namespace Wolf {
     namespace Renderer {
         class Shader
         {
+        private:
         public:
+            Shader() = default;
+            Shader(const Shader& rShader) = default;
+            Shader& operator= (const Shader& rShader){
+                ID = rShader.ID;
+                return *this;
+            }
             unsigned int ID;
             // constructor generates the shader on the fly
             // ------------------------------------------------------------------------
