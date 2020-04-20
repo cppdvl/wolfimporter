@@ -8,7 +8,10 @@
 #include <string>
 #include <vector>
 
-#include <function>
+#include <functional>
+
+#include <wolf/utils/stringutils.hpp>
+#include <wolf/utils/vectorutils.hpp>
 
 using json = nlohmann::json;
 std::array<unsigned int, 3> GenerateVTNArray(const std::string& triangleVertexVTNKey){
@@ -16,17 +19,17 @@ std::array<unsigned int, 3> GenerateVTNArray(const std::string& triangleVertexVT
     auto vstring_v_t_n = Wolf::StringUtils::split(triangleVertexVTNKey,'/');
     auto arruint_v_t_n = std::array<unsigned int, 3>{0u, 0u, 0u};
     
-    std::stringstream{v_t_n[0]} >> arruint_v_t_n[0]; 
+    std::stringstream{vstring_v_t_n[0]} >> arruint_v_t_n[0]; 
     arruint_v_t_n[0]--;
-    std::stringstream{v_t_n[1]} >> arruint_v_t_n[1]; 
+    std::stringstream{vstring_v_t_n[1]} >> arruint_v_t_n[1]; 
     arruint_v_t_n[1]--;
-    std::stringstream{v_t_n[2]} >> arruint_v_t_n[2]; 
+    std::stringstream{vstring_v_t_n[2]} >> arruint_v_t_n[2]; 
     arruint_v_t_n[2]--;
 
     return arruint_v_t_n;
 
 }
-const json MtlParser(const Wolf::File& file){
+const json MTLParser(const Wolf::File& file){
 
     using pMtlParseFunction = std::function<void(const std::vector<std::string>&)>; 
     //Declare
@@ -66,7 +69,7 @@ const json MtlParser(const Wolf::File& file){
             auto vsVectorToParse = std::vector<std::string>(args.begin() + 1, args.end());
             auto vfVectorToParse = std::vector<float>{};
             Wolf::VectorUtils::pushvectorf(vfVectorToParse, vsVectorToParse, 3);
-            jsonData[reference_material][args[0]]{
+            jsonData[reference_material][args[0]] = std::array{
                 vfVectorToParse[0], 
                 vfVectorToParse[1], 
                 vfVectorToParse[2]};
@@ -90,11 +93,12 @@ const json MtlParser(const Wolf::File& file){
             std::make_pair("illum", add_int_value),
             std::make_pair("map_Kd", add_string_value)            
         };
-        auto LineIsIrrelevant = [&](auto& command_line_splitted, auto& command_line_splitted){
+        std::function<bool(const std::string&, std::vector<std::string>&)> LineIsIrrelevant
+        {[&](auto& command_line, auto& command_line_splitted){
             if (command_line.empty()) return true;
-            command_line_splitted = Wolf::StringUtils::split(line,' ');
+            command_line_splitted = Wolf::StringUtils::split(command_line,' ');
             return linetype_function.find(command_line_splitted[0]) == linetype_function.end();
-        }
+        }};
 
     }rawmaterial;
 
@@ -102,7 +106,7 @@ const json MtlParser(const Wolf::File& file){
     for (auto&line:file.lines){
         
         std::vector<std::string>commandStringVector{};
-        if (LineIsIrrelevant(line, commandStringVector)) continue;
+        if (rawmaterial.LineIsIrrelevant(line, commandStringVector)) continue;
         rawmaterial.linetype_function[commandStringVector[0]](commandStringVector);
     
     }
@@ -110,7 +114,7 @@ const json MtlParser(const Wolf::File& file){
     return rawmaterial.jsonData;
 }
 
-std::tuple<const json, const std::vector<float>> Wolf::ObjParser::Serialize(const Wolf::File& file){
+std::tuple<const json, const std::vector<float>> Wolf::OBJParser::Serialize(const Wolf::File& file){
 
     enum wavefrontstate {
         none, mtllib, o, v, vt, vn, usemtl, s, f
@@ -118,11 +122,11 @@ std::tuple<const json, const std::vector<float>> Wolf::ObjParser::Serialize(cons
     
     using pOBJParseFunction = std::function<void(const std::vector<std::string>&)>; 
     struct {  
-        std::tuple<const json&, const std::vector<float>&>   
         json jsonData{
             {"Geometry", json::object()},
             {"Material", json::object()}
         };
+        std::string folderPath{};
         std::string modelname{};
         std::string matlibfilename{};    
         std::vector<float> vertices{};
@@ -165,12 +169,12 @@ std::tuple<const json, const std::vector<float>> Wolf::ObjParser::Serialize(cons
                 {"mtllib", matlibfilename},
                 {"meshes", json::array()}};
 
-            auto matFile = Wolf::File(file.FolderPath(), args[1]);
-            jsonData["Materials"][matlibfilename] = MtlParser(matFile);
+            auto matFile = Wolf::File(folderPath + args[1]);
+            jsonData["Materials"][matlibfilename] = MTLParser(matFile);
         }};
         
         pOBJParseFunction add_reference_mat
-        {[&](const std::string& args){
+        {[&](const auto& args){
             auto& jmeshes = jsonData["Geometry"][modelname]["meshes"];
             auto  jmesh = json{
                 {"reference_mat", args[1]},
@@ -182,14 +186,14 @@ std::tuple<const json, const std::vector<float>> Wolf::ObjParser::Serialize(cons
         std::function<void(const std::string &)> UpdateVBOData
         {[&](auto &sTriangleVTNKey){
             const auto arrTriangleIndices = GenerateVTNArray(sTriangleVTNKey);
-            vfVBO.push_back(vertices[arrTriangleIndices[0] * 3 + 0]);
-            vfVBO.push_back(vertices[arrTriangleIndices[0] * 3 + 1]);
-            vfVBO.push_back(vertices[arrTriangleIndices[0] * 3 + 2]);
-            vfVBO.push_back(texcoord[arrTriangleIndices[1] * 2 + 0]);
-            vfVBO.push_back(texcoord[arrTriangleIndices[1] * 2 + 1]);
-            vfVBO.push_back(vnormals[arrTriangleIndices[2] * 3 + 0]);
-            vfVBO.push_back(vnormals[arrTriangleIndices[2] * 3 + 1]);
-            vfVBO.push_back(vnormals[arrTriangleIndices[2] * 3 + 2]);    
+            vfVBOData.push_back(vertices[arrTriangleIndices[0] * 3 + 0]);
+            vfVBOData.push_back(vertices[arrTriangleIndices[0] * 3 + 1]);
+            vfVBOData.push_back(vertices[arrTriangleIndices[0] * 3 + 2]);
+            vfVBOData.push_back(texcoord[arrTriangleIndices[1] * 2 + 0]);
+            vfVBOData.push_back(texcoord[arrTriangleIndices[1] * 2 + 1]);
+            vfVBOData.push_back(vnormals[arrTriangleIndices[2] * 3 + 0]);
+            vfVBOData.push_back(vnormals[arrTriangleIndices[2] * 3 + 1]);
+            vfVBOData.push_back(vnormals[arrTriangleIndices[2] * 3 + 2]);    
         }};
  
         pOBJParseFunction add_triangle_indexes
@@ -197,15 +201,14 @@ std::tuple<const json, const std::vector<float>> Wolf::ObjParser::Serialize(cons
             
             //Get Reference of our array.
             auto& indexes_array = jsonData["Geometry"][modelname]["meshes"][jsonData["Geometry"][modelname]["meshes"].size() - 1]["indexes_array"];
-            auto& jtriangle_vertices_EBO_array = json::array();
+            auto jtriangle_vertices_EBO_array = json::array();
 
             //Parse command tokens.
             auto vsTriangleVTNKeys = std::vector<std::string>(args.begin() + 1, args.end());
             for (auto& triangleVTNKey : vsTriangleVTNKeys){
                 
                 //Check if VTN is already registered in the VTN => EBO map.
-                auto& triangleVTNIndexRegistry = triangleVTNIndexRegistry;
-                auto triangleVTNKeyIsNotRegistered = triangleVTNIndexResgistry.find(triangleVTNKey) == triangleVTNIndexRegistry.end();
+                auto triangleVTNKeyIsNotRegistered = triangleVTNIndexRegistry.find(triangleVTNKey) == triangleVTNIndexRegistry.end();
                 
                 //If not registered, register it.
                 if (triangleVTNKeyIsNotRegistered) triangleVTNIndexRegistry[triangleVTNKey] = triangleVTNIndexRegistry.size();
@@ -224,7 +227,7 @@ std::tuple<const json, const std::vector<float>> Wolf::ObjParser::Serialize(cons
         
         pOBJParseFunction add_vector
         {[&](auto& args){
-            auto vsVector = std::vector<std::string>(args.begin() + 1 args.end());
+            auto vsVector = std::vector<std::string>(args.begin() + 1, args.end());
             if (args[0] == "v") Wolf::VectorUtils::pushvectorf(vertices, vsVector, 3);
             else if (args[0] == "vn") Wolf::VectorUtils::pushvectorf(vnormals, vsVector, 3);
             else if (args[0] == "vt") Wolf::VectorUtils::pushvectorf(texcoord, vsVector, 2);
@@ -243,22 +246,22 @@ std::tuple<const json, const std::vector<float>> Wolf::ObjParser::Serialize(cons
         {[&](){
             std::cout << std::setw(4) << jsonData << std::endl;
         }};
-        auto LineIsIrrelevant = [&](auto& command_line, auto& command_line_splitted){
+        std::function<bool(const std::string&, std::vector<std::string>&)> LineIsIrrelevant
+        {[&](auto& command_line, auto& command_line_splitted){
             if (command_line.empty()) return true;
-            auto command_line_splitted = Wolf::StringUtils::split(command_line,' ');
+            command_line_splitted = Wolf::StringUtils::split(command_line,' ');
             return linetype_function.find(command_line_splitted[0]) == linetype_function.end();
-        }
+        }};
     }rawmodel;
-
+    rawmodel.folderPath = file.FolderPath();
     for (auto&line:file.lines){
         
         std::vector<std::string>commandStringVector{};
-        if (LineIsIrrelevant(line, commandStringVector)) continue;
-        rawmaterial.linetype_function[commandStringVector[0]](commandStringVector);
-
+        if (rawmodel.LineIsIrrelevant(line, commandStringVector)) continue;
+        rawmodel.linetype_function[commandStringVector[0]](commandStringVector);
         
     }
-    std::make_tuple(rawmodel.jsonData, rawmodel.vfVBOData);
+    return std::make_tuple(rawmodel.jsonData, rawmodel.vfVBOData);
 }
 
 

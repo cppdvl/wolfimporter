@@ -1,7 +1,3 @@
-#include <array>
-#include <fstream>
-#include <iostream>
-#include "wolf/utils/filesystemutils.hpp"
 #include "wolf/file/file.hpp"
 
 
@@ -11,7 +7,7 @@ namespace fs = std::filesystem;
 bool SanityCheck(const fs::path& abspath) {
     return fs::exists(abspath);
 }
-void Wolf::_3DFormats::_File::_init(const fs::path& relative_path) {
+void Wolf::File::_init(const fs::path& relative_path) {
 
     auto foldertmppath = relative_path;
     filename = foldertmppath.filename().string();
@@ -23,7 +19,7 @@ void Wolf::_3DFormats::_File::_init(const fs::path& relative_path) {
     exists = SanityCheck(absolute_path);
 
 }
-void Wolf::_3DFormats::_File::_open(const fs::path& relative_path){
+void Wolf::File::_open(const fs::path& relative_path){
 
     _init(relative_path);
     if (!exists) return;
@@ -36,29 +32,29 @@ void Wolf::_3DFormats::_File::_open(const fs::path& relative_path){
         auto voidline = a.empty();
         if ( endline ){
             if ( !voidline ){
-                line.push_back(a);
+                lines.push_back(std::string{a.data()});
                 a.clear();
             } else ifp.get();
         } else {
-            a.push_back(ifp.get())
+            a.push_back(ifp.get());
         }
     }        
     ifp.close();
 }
-Wolf::_3DFormats::_File::_File(const std::string& rpath, const std::string& rfilename) {
+Wolf::File::File(const std::string& rpath, const std::string& rfilename) {
     
     auto relative_path = fs::path{ rpath } / fs::path{ rfilename };
     _open(relative_path);
     
 }
-Wolf::_3DFormats::_File::_File(const std::string& rrelpath){
+Wolf::File::File(const std::string& rrelpath){
     
     auto relative_path = fs::path{ rrelpath };
     _open(relative_path);
     
 }
 
-void Wolf::_3DFormats::_File::DumpFile(){
+void Wolf::File::DumpFile(){
     
     for(auto&line:lines){
         std::cout << line << std::endl;

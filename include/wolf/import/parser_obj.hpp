@@ -4,7 +4,7 @@
 namespace Wolf {
     class OBJParser : public Wolf::Parser {
     public:
-        virtual void* Serialize(const Wolf::File&);
+        virtual std::tuple<const nlohmann::json, const std::vector<float>> Serialize(const Wolf::File& file) override;
     };
 
 }

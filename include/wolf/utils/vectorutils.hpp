@@ -9,10 +9,14 @@
 
 namespace Wolf {
     namespace VectorUtils {
-		void pushvectorf(std::vector<float>& v, std::istringstream&ss, int n);
-		void pushvectorf(std::vector<float>& v, std::string&s, int n);
-		void pushvectorf(glm::vec3& v, std::string&s);
-	}
+
+        void pushvectorf(std::vector<float>& v, std::istringstream&ss, int n);
+        
+        void pushvectorf(std::vector<float>& v, std::vector<std::string>&vs, int n);
+        void pushvectorf(std::vector<float>& v, std::string&s, int n);
+        
+        void pushvectorf(glm::vec3& v, std::string&s);
+    }
 }
 
 #endif

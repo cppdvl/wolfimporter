@@ -15,6 +15,20 @@ namespace Wolf {
             v.push_back(f);
             if (--n > 0) pushvectorf(v, ss, n);
         }
+
+        void pushvectorf(std::vector<float>& v, std::vector<std::string>&vs, int n){
+
+            auto ss = std::istringstream{vs[0]};
+            float f; 
+            ss >> f;
+            v.push_back(f);
+            if (--n > 0){
+                auto nextvs = std::vector<std::string>(vs.begin() + 1, vs.end());
+                pushvectorf(v, nextvs, n);
+            }
+
+        }
+        
         void pushvectorf(std::vector<float>& v, std::string&s, int n){
             
             auto ss = std::istringstream{s};

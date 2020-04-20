@@ -7,7 +7,7 @@
 namespace Wolf{
     namespace StringUtils {
 		
-		std::vector<std::string> split(std::string& s, char delim);
+		std::vector<std::string> split(const std::string& s, char delim);
 		std::string join(std::vector<std::string> vs, char c, unsigned int firstindex = 0);
         template <typename T>
         T parse(const std::string& s){
