@@ -14,19 +14,28 @@ namespace Wolf {
          * @tparam     I The type of an object with the purpose of describe the state of a particular object.
          */
         template <typename I> 
-        class FWVAO_T : public Wolf::FlyWeight::FW<unsigned int, I>{
+        class FWVAO_T : public Wolf::FlyWeight::FW<unsigned long, I>{
         public:
             FWVAO_T() = default;
-            explicit FWVAO_T(const unsigned int& uiVao) : Wolf::FlyWeight::FW<unsigned int, I>(uiVao){
+            explicit FWVAO_T(const unsigned int& uiVao, const unsigned int& uiNVtx) : Wolf::FlyWeight::FW<unsigned long, I>((uiNVtx << 32) + (uiVao & 0xFFFFFFFF)){
 
             }
-            explicit FWVAO_T(const std::vector<unsigned int>& vuiVao) : Wolf::FlyWeight::FW<unsigned int, I>(vuiVao){
+            explicit FWVAO_T(const std::vector<unsigned long>& v_uiNVtxuiVao) : Wolf::FlyWeight::FW<unsigned long, I>(v_uiNVtxuiVao){
 
             };
 
 
             virtual ~FWVAO_T(){}
         };
+
+        template <typename I>
+        class VAODomain : public FWVAO_T<I>{
+        public:
+            explicit VAODomain() = default;
+            explicit VAODomain(const std::vector<unsigned long>& vuiVao) : FWVAO_T<I>(vuiVao){}
+
+        };
+
         template <typename S, typename I> 
         class FWSHDR__FWVAO_T : public Wolf::FlyWeight::FW<S, FWVAO_T<I>>{
         public:
@@ -44,7 +53,23 @@ namespace Wolf {
             }
 
 
-        };    
+        };
+
+        template <typename C, typename S, typename I>
+        class FWC___FWSDHR__FWVAO_T : public Wolf::FlyWeight::FW<C, FWSHDR__FWVAO_T<S,I>>{
+            explicit FWC___FWSDHR__FWVAO_T() = default;
+            explicit FWC___FWSDHR__FWVAO_T(const C& c) : Wolf::FlyWeight::FW<C, FWSHDR__FWVAO_T<S, I>>(c){}
+        };
+
+        template <typename C, typename S, typename I>
+        class CameraDomain : public FWC___FWSDHR__FWVAO_T<C, S, I>{
+            CameraDomain() = default;
+            CameraDomain(const C& c) : FWC___FWSDHR__FWVAO_T<C, S, I>(c){}
+            void SetCamera(C const& camera){
+                this->commonData.push_back(camera);
+            }
+
+        };
 
     }
  
