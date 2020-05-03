@@ -11,10 +11,6 @@ namespace Wolf {
             
             auto relpath = fs::path{rrelpath};
 	        relpath = fs::absolute(relpath);
-            auto fileok = fs::exists(relpath);
-            
-            
-
 	        std::ifstream ifp(relpath, std::ios::in);
             return ifp;
         }
