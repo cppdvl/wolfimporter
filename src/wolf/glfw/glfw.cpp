@@ -51,12 +51,13 @@ namespace Wolf {
             // ---------------------------------------
             if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
             {
-                std::cout << "Failed to initialize GLAD" << std::endl;
-                return -1;
+                //std::cout << "Failed to initialize GLAD" << std::endl;
+                Wolf::OGLUtil::GLFWTerminate();
+                return nullptr;
             }
 
 
-            return window;
+            return pWindow;
         }
     }
 }
