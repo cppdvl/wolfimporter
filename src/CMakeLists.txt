@@ -9,6 +9,7 @@ add_library(WolfImporter
     wolf/vectorutils.cpp
     wolf/file/file.cpp
     wolf/import/parser_obj.cpp
+    wolf/glfw/glfw.cpp
 )
 target_include_directories(WolfImporter PRIVATE 
 

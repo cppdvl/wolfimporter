@@ -7,7 +7,7 @@ namespace fs = std::filesystem;
 namespace Wolf {
     namespace FileSystemUtils {
 
-        std::ifstream open(std::string& rrelpath){
+        std::ifstream open(const std::string& rrelpath){
             
             auto relpath = fs::path{rrelpath};
 	        relpath = fs::absolute(relpath);
