@@ -15,6 +15,7 @@ target_include_directories(WolfImporter PRIVATE
 
     ../include/
     ../Vendor/glm
+    ../Vendor/glad/include
     /usr/local/include
 )
 
