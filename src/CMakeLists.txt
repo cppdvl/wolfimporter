@@ -3,19 +3,39 @@ set(CMAKE_CXX_STANDARD 17)
 project(WolfImporter)
 set(CMAKE_VERBOSE_MAKEFILE TRUE)
 
-add_library(WolfImporter 
+file(GLOB           VENDORS_SOURCES ../Vendor/glad/src/glad.c)
+file(GLOB           GUIIMPL_SOURCES ../Vendor/gui/examples/imgui_impl_glfw.*
+                                    ../Vendor/gui/examples/imgui_impl_opengl3.*
+                                    ../Vendor/gui/*.h
+                                    ../Vendor/gui/imgui.cpp
+                                    ../Vendor/gui/imgui_draw.cpp
+                                    ../Vendor/gui/imgui_widgets.cpp)
+
+
+list(APPEND FULL_SOURCES_LIST 
+    ${VENDORS_SOURCES} 
+    ${GUIIMPL_SOURCES})
+
+
+add_library(${PROJECT_NAME} 
     wolf/filesystemutils.cpp
     wolf/stringutils.cpp
     wolf/vectorutils.cpp
     wolf/file/file.cpp
     wolf/import/parser_obj.cpp
     wolf/glfw/glfw.cpp
+    wolf/gui/gui.cpp
 )
-target_include_directories(WolfImporter PRIVATE 
+target_sources(${PROJECT_NAME} PRIVATE 
+    ${FULL_SOURCES_LIST})
+
+target_include_directories(${PROJECT_NAME} PRIVATE 
 
     ../include/
     ../Vendor/glm
     ../Vendor/glad/include
+    ../Vendor/gui
+    ../Vendor/gui/examples
     /usr/local/include
 )
 
