@@ -16,7 +16,7 @@ namespace Wolf {
                 unsigned int width{800};
                 unsigned int height{600};
             }mSize;
-            std::string mWindowTitle{"WolfEngine"};
+            std::string mWindowTitle{"WolfEngine - GLFW Powered"};
             GLFWframebuffersizefun mFrameBufferSizeCallBack;
             GLFWcursorposfun mMouseCallBack;
             GLFWscrollfun mScrollCallBack;
