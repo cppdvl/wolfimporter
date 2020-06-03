@@ -10,6 +10,8 @@ namespace Wolf {
                 unsigned int major{3};
                 unsigned int minor{3};
             }mVersion;
+        };
+        struct GLFWWindowConfiguration{
             struct {
                 unsigned int width{800};
                 unsigned int height{600};
@@ -20,7 +22,9 @@ namespace Wolf {
             GLFWscrollfun mScrollCallBack;
         };
         void GLFWTerminate(std::function<void(void)> terminationHandler = [](){});
-        GLFWwindow* GLFWInit(const Wolf::OGLUtil::GLFWInitConfiguration& initConfiguration);
+        GLFWwindow* GLFWCreateWindow(const Wolf::OGLUtil::GLFWWindowConfiguration& windowConfiguration);
+        void GLFWInit(const Wolf::OGLUtil::GLFWInitConfiguration& initConfiguration);
+
     }    
 }
 

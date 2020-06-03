@@ -9,8 +9,8 @@ namespace Wolf {
             terminationHandler();
             glfwTerminate();
         }
-        GLFWwindow* GLFWInit(const Wolf::OGLUtil::GLFWInitConfiguration& initConfiguration){
-            
+
+        void GLFWInit(const Wolf::OGLUtil::GLFWInitConfiguration& initConfiguration){
 
             // glfw: initialize and configure
             // ------------------------------
@@ -23,12 +23,17 @@ namespace Wolf {
             glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
         #endif
 
+        }
+        GLFWwindow* GLFWCreateWindow(const Wolf::OGLUtil::GLFWWindowConfiguration& windowConfiguration){
+            
+
+
             // glfw window creation
             // --------------------
             GLFWwindow* pWindow = glfwCreateWindow(
-                initConfiguration.mSize.width, 
-                initConfiguration.mSize.height, 
-                initConfiguration.mWindowTitle.c_str(), 
+                windowConfiguration.mSize.width, 
+                windowConfiguration.mSize.height, 
+                windowConfiguration.mWindowTitle.c_str(), 
                 nullptr, 
                 nullptr);
 
@@ -40,9 +45,9 @@ namespace Wolf {
             }
 
             glfwMakeContextCurrent(pWindow);
-            glfwSetFramebufferSizeCallback(pWindow, initConfiguration.mFrameBufferSizeCallBack);
-            glfwSetCursorPosCallback(pWindow, initConfiguration.mMouseCallBack);
-            glfwSetScrollCallback(pWindow, initConfiguration.mScrollCallBack);
+            glfwSetFramebufferSizeCallback(pWindow, windowConfiguration.mFrameBufferSizeCallBack);
+            glfwSetCursorPosCallback(pWindow, windowConfiguration.mMouseCallBack);
+            glfwSetScrollCallback(pWindow, windowConfiguration.mScrollCallBack);
 
             // tell GLFW to capture our mouse
             glfwSetInputMode(pWindow, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
