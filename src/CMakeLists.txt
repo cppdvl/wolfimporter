@@ -25,6 +25,9 @@ add_library(${PROJECT_NAME}
     wolf/import/parser_obj.cpp
     wolf/glfw/glfw.cpp
     wolf/gui/gui.cpp
+    wolf/engine/engine.cpp
+    wolf/engine/cliparser.cpp
+    wolf/engine/sandboxmapper.cpp
 )
 target_sources(${PROJECT_NAME} PRIVATE 
     ${FULL_SOURCES_LIST})
@@ -40,3 +43,5 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 )
 
 
+get_filename_component(ENGINE_RESOURCES_FULLPATH ../Resources ABSOLUTE)
+set(ENGINE_RESOURCES_FULLPATH ${ENGINE_RESOURCES_FULLPATH} PARENT_SCOPE)

@@ -1,0 +1,29 @@
+{
+    "RESOURCE_TYPE" : "SCENE",
+    "RESOURCE_DATA" : {
+        "entities" : [
+            {
+                "name_header" : "TheCube",
+                "mesh_header" : "wolfePrimitives//cube",
+                "kinematic_header" : {
+                    "location"    : [0, 0.5, 0.0],
+                    "speed"       : [0, 0, 0],
+                    "acceleration": [0, 0, 0]
+                }
+            },
+            {
+                "name_header" : "TheFloor",
+                "mesh_header" : "wolfePrimitives//plane",
+                "kinematic_header" : {
+                    "location"    : [0, 0.0, 0.0],
+                    "speed"       : [0, 0, 0],
+                    "acceleration": [0, 0, 0]
+                }
+            },
+            {
+                "name_header" : "MainCamera",
+                "reference" : "wolfeCameras//0"
+            }
+        ]
+    }
+}

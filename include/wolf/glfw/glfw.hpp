@@ -1,10 +1,11 @@
-#ifndef _WOLF_GLFW_
-#define _WOLF_GLFW_
+#ifndef __WOLF_GLFW__
+#define __WOLF_GLFW__
 
 #include <GLFW/glfw3.h>
 #include <string>
 namespace Wolf {
-    namespace OGLUtil{
+    namespace GLFW{
+        static GLFWwindow* pWindow{nullptr};
         struct GLFWInitConfiguration{
             struct {
                 unsigned int major{3};
@@ -22,8 +23,14 @@ namespace Wolf {
             GLFWscrollfun mScrollCallBack;
         };
         void GLFWTerminate(std::function<void(void)> terminationHandler = [](){});
-        GLFWwindow* GLFWCreateWindow(const Wolf::OGLUtil::GLFWWindowConfiguration& windowConfiguration);
-        void GLFWInit(const Wolf::OGLUtil::GLFWInitConfiguration& initConfiguration);
+        GLFWwindow* GLFWCreateWindow(const Wolf::GLFW::GLFWWindowConfiguration& windowConfiguration);
+        void GLFWInit(const Wolf::GLFW::GLFWInitConfiguration& initConfiguration);
+        
+        //Default Callbacks
+        void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+        void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+        void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+        void processInput(GLFWwindow *window);
 
     }    
 }

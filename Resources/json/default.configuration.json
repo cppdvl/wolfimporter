@@ -1,0 +1,10 @@
+{
+    "glversion" : {
+        "major" : 3,
+        "minor" : 3
+    }, 
+    "window" : {
+        "size" : [800, 600],
+        "windowTitle" : "WolfEngine - GLFW Powered"
+    }
+}

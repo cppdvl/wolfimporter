@@ -6,7 +6,7 @@
 #include <glm/glm.hpp>
 
 namespace Wolf {
-    namespace FlyWeight {
+    namespace Pttrn {
         template <typename C, typename U> //Common, Unique
         class FW : public std::vector<U> {
 
