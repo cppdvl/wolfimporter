@@ -1,6 +1,7 @@
 #include <mutex>
 #include <cstdlib>
 #include <iostream>
+#include <algorithm>
 
 #include <wolf/engine/resourcemanager.hpp>
 
