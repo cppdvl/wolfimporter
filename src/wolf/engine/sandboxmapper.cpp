@@ -9,6 +9,7 @@ Wolf::Engine::SandboxMapping Wolf::Engine::SandboxMapper::xGetMapping(const std:
 
     auto bExceptional = false;
     std::ifstream i(path);
+    if (!i) std::cout << "Problem Opening " << path << std::endl;
     nlohmann::json j;
     i >> j;
     

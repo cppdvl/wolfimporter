@@ -2,16 +2,16 @@
     "RESOURCE_TYPE" : "CAMERAS",
     "RESOURCE_DATA" : [
         {
-            "kinematic_head" : {
+            "kinematic_component" : {
                 "location"    : [0, 1.0, 10.0],
                 "speed"       : [0, 0, 0],
                 "acceleration": [0, 0, 0]
             },
-            "orientation_head" : {
+            "orientation_component" : {
                 "yaw"  : 0, 
                 "pitch": 0
             },
-            "projection" : {
+            "projection_component" : {
                 "zfar"  : 100.0,
                 "znear" : 0.1,
                 "fovy"  : 35.0,

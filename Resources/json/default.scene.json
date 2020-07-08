@@ -3,25 +3,25 @@
     "RESOURCE_DATA" : {
         "entities" : [
             {
-                "name_header" : "TheCube",
-                "mesh_header" : "wolfePrimitives//cube",
-                "kinematic_header" : {
+                "entity_name_component" : "TheCube",
+                "mesh_component" : "wolfePrimitives//cube",
+                "kinematic_component" : {
                     "location"    : [0, 0.5, 0.0],
                     "speed"       : [0, 0, 0],
                     "acceleration": [0, 0, 0]
                 }
             },
             {
-                "name_header" : "TheFloor",
-                "mesh_header" : "wolfePrimitives//plane",
-                "kinematic_header" : {
+                "entity_name_component" : "TheFloor",
+                "mesh_component" : "wolfePrimitives//plane",
+                "kinematic_component" : {
                     "location"    : [0, 0.0, 0.0],
                     "speed"       : [0, 0, 0],
                     "acceleration": [0, 0, 0]
                 }
             },
             {
-                "name_header" : "MainCamera",
+                "entity_name_component" : "MainCamera",
                 "reference" : "wolfeCameras//0"
             }
         ]

@@ -10,19 +10,20 @@ namespace Wolf::Engine {
     class Scene;
     using SPScene = std::shared_ptr<Wolf::Engine::Scene>;
     
-    class Scene {
-        
-        std::vector<std::weak_ptr<Wolf::Engine::Entity>> entities{};
-                
-
+    class Scene : public Wolf::Engine::VWPEntity {
+    protected:        
+        unsigned long sceneId{0};              
     public:
-        static SPScene bBuildSceneOutOfResource(std::string const& resourceName);
+        Scene(){
+            
+        }
+        Scene(std::string const& resourceName);
         //calbacks
         virtual void init();
         virtual void update(unsigned int msec_delta);
         virtual void render();
         virtual void finish();
-
+        virtual ~Scene() {}
     };
 
 }

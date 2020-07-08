@@ -12,7 +12,7 @@ namespace Wolf::Pttrn {
         inline static std::shared_ptr<T> spInstance {nullptr};
         inline static std::once_flag xInstanceOnceAllocationFlag;
     public:
-        static const auto spGetInstance(){
+        static auto spGetInstance(){
             std::call_once(xInstanceOnceAllocationFlag, [&](){
                 spInstance = std::make_shared<T>();
             });

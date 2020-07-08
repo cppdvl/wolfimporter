@@ -5,7 +5,7 @@ namespace Wolf::Cli {
     struct WolfEngineOptions
     {
         std::string defaultConfiguration{"wolfengine/Resources/json/default.configuration.json"};
-        std::string defaultSandbox{"wolfengine/Resources/json/default.resources.json"};
+        std::string defaultSandbox{"wolfengine/Resources/json/default.sandbox.json"};
     };
 
     const WolfEngineOptions loadOptions(int argc, const char ** argv);

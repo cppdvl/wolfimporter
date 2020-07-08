@@ -1,22 +1,10 @@
 #ifndef __WOLF_RESOURCEIMPORT__
 #define __WOLF_RESOURCEIMPORT__
 
-
+#include <string>
 namespace Wolf::Import::Resources {
     
-
-    class SceneImporter;
-    class Importer {
-        
-    public:
-        static bool OpenImporter(const std::string& path);
-        
-    
-    };
-
-    class SceneImporter : public Importer {
-
-    };
+    void ImportScene(const std::string& resourceName);
 
 }
 

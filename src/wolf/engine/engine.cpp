@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <functional>
+#include <signalslot.h>
 #include <nlohmann/json.hpp>
 
 #include <wolf/engine/scene.hpp>
@@ -11,10 +12,13 @@
 #include <wolf/engine/resourcemanager.hpp>
 
 namespace Wolf::Engine {
+    
 
+    
     void startEngineWindow(const std::string configurationPath){
         
         std::ifstream i(configurationPath);
+        if (!i) std::cout << "Problem opening " << configurationPath << std::endl;
         nlohmann::json j;
         i >> j;
         auto initConfiguration = Wolf::GLFW::GLFWInitConfiguration{
@@ -40,6 +44,15 @@ namespace Wolf::Engine {
     }
     void createDefaultScene(){
 
+        auto pScene = std::make_shared<Wolf::Engine::Scene>("wolfeScene");
+        auto pGameManager = Wolf::Engine::GameManager::spGetInstance();
+        pGameManager.get()->push(pScene);
+    }
+    void startGameManager(){
+        
+        auto pGameManager = Wolf::Engine::GameManager::spGetInstance();
+
+
     }
     Wolf::Engine::ReturnCode Init(int argc, const char**argv, std::function<void()> fn){
 
@@ -49,14 +62,16 @@ namespace Wolf::Engine {
         //Engine User fn
         setOptions(options);
 
+
+        //Generate a Game Manager
+
+
         //Ok Now we have an opengl contexted screen and some resources (though they are lazy, but they are there).
+        if(!fn)
+            createDefaultScene();
+        else
+            fn();
 
-        
-
-        if(fn)fn();
-        else {
-
-        }
         
 
         return ReturnCode::OK;

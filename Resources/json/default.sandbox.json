@@ -1,7 +1,7 @@
 {
     "RESOURCE_TYPE" : "MAPPING",
     "RESOURCE_DATA" : {
-        "wolfePrimitives": "json/default.resources.json",
+        "wolfePrimitives": "json/default.sandbox.json",
         "wolfeCameras"   : "json/default.cameras.json",
         "wolfeScene"     : "json/default.scene.json"
     }

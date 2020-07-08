@@ -10,8 +10,10 @@
 #include <utility>
 #include <unordered_map>
 
+#include <wolf/engine/entity.hpp>
 #include <wolf/pttrns/singleton.hpp>
 #include <wolf/engine/sandboxmapper.hpp>
+#include <wolf/engine/gamemanager.hpp>
 
 namespace Wolf::Engine {
     
@@ -46,6 +48,17 @@ namespace Wolf::Engine {
             
         };
         
+        /**
+         * @brief      This function loads lazy resources that are not yet on memory. 
+         *
+         * @param[in]  <unnamed>  { parameter_description }
+         *
+         * @return     { description_of_the_return_value }
+         */
+        Wolf::Engine::SPResource _spGetResource(const std::string&);
+
+        bool _bResourceStillLazy(const Wolf::Engine::ResourceAlias&);
+
         public:
         void vRegisterResourcesInSandbox(const std::string& resourceUrl);
         ResourceManagerValueReturned xSymlinkResource(const Wolf::Engine::SandboxBind& bind);
@@ -59,7 +72,26 @@ namespace Wolf::Engine {
          */
         ResourceManagerValueReturned xSymlinkResource(const std::string& alias, const std::string& resourceUrl);
         
-        
+
+        /**
+         * @brief      Get a pointer to the resource referenced by the resource name
+         *
+         * @param[in]  resourceName  The name of the resource to get. 
+         *
+         * @return     On Success a shared pointer to the resource is returned. On failure nullptr is returned.
+         */
+        Wolf::Engine::SPResource spGetResource(const std::string& resourceName);
+
+        /**
+         * @brief      Check if a resource it's already registered. 
+         *
+         * @param[in]  resourceName  The resource name
+         *
+         * @return     If resource with is registered returns true, otherwise false.
+         */
+        bool bResourceIsRegistered(const std::string& resourceName);
+
+
     };
 
 }

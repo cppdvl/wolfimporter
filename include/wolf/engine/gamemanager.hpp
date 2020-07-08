@@ -12,7 +12,15 @@ namespace Wolf::Engine {
 using STKSPScene = std::stack<Wolf::Engine::SPScene>;
     
     class GameManager : public Wolf::Pttrn::Singleton<GameManager>, public Wolf::Engine::STKSPScene {
+        
+        public:
+        void push(const Wolf::Engine::SPScene&elem){
+            
+            Wolf::Engine::STKSPScene::push(elem);
+            //We need to tell subscribers this has happened, we need to implement the signal slot pattern
 
+            
+        }
     };
 
 }

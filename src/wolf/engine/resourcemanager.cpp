@@ -1,4 +1,5 @@
 #include <mutex>
+#include <cstdlib>
 #include <iostream>
 
 #include <wolf/engine/resourcemanager.hpp>
@@ -43,3 +44,44 @@ Wolf::Engine::ResourceManagerValueReturned Wolf::Engine::ResourceManager::xSymli
 
     return Wolf::Engine::ResourceManagerValueReturned::Ok;
 } //x = some custom data type (the enumeration)
+
+
+bool Wolf::Engine::ResourceManager::bResourceIsRegistered(const std::string& resourceName){
+
+    auto resFound = sAlias_xResourceAlias.find(resourceName) != sAlias_xResourceAlias.end();
+    return resFound;
+
+}
+bool Wolf::Engine::ResourceManager::_bResourceStillLazy(const Wolf::Engine::ResourceAlias& url_wpresource){
+
+    auto wpResource = url_wpresource.second;
+    if (wpResource.expired()) return true;
+    auto spResource = wpResource.lock(); 
+    if (spResource == nullptr) return true;
+    else return false;
+
+}
+Wolf::Engine::SPResource Wolf::Engine::ResourceManager::_spGetResource(const std::string& resourceName){
+
+    //We already know this resource is registered. 
+    auto url_wpresource = sAlias_xResourceAlias[resourceName];
+    auto url = url_wpresource.first;
+
+    
+
+    return nullptr;
+}
+
+Wolf::Engine::SPResource Wolf::Engine::ResourceManager::spGetResource(const std::string& resourceName){
+
+    auto resourceNotFound = !bResourceIsRegistered(resourceName);
+    if (resourceNotFound){
+        //Handle this error somehow.
+        std::cout << xErrorValue_sMessages[Wolf::Engine::ResourceManagerValueReturned::InvalidResourceReferenceKey] << " " << resourceName << std::endl;
+        std::exit(-1);        
+    } 
+    auto url_wpresource = sAlias_xResourceAlias[resourceName];
+    if (_bResourceStillLazy(url_wpresource)) return _spGetResource(resourceName);
+    auto spResource = url_wpresource.second.lock();
+    return spResource;
+}
