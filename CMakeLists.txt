@@ -6,6 +6,19 @@ option(GLFW_BUILD_DOCS OFF)
 get_filename_component(GLFW_FULLPATH Vendor/glfw ABSOLUTE)
 add_subdirectory(${GLFW_FULLPATH})
 
+include(FetchContent)
+
+
+FetchContent_Declare(
+    json
+    GIT_REPOSITORY https://github.com/ArthurSonzogni/nlohmann_json_cmake_fetchcontent
+    GIT_TAG v3.8.0
+    )
+FetchContent_GetProperties(json)
+if(NOT json_POPULATED)
+    FetchContent_Populate(json)
+    add_subdirectory(${json_SOURCE_DIR} ${json_BINARY_DIR} EXCLUDE_FROM_ALL)
+endif()
 
 file(GLOB           VENDORS_SOURCES Vendor/glad/src/glad.c)
 file(GLOB           GUIIMPL_SOURCES Vendor/gui/examples/imgui_impl_glfw.*
@@ -35,8 +48,9 @@ add_library(${PROJECT_NAME}
     src/wolf/engine/sandboxmapper.cpp
     src/wolf/engine/resourcemanager.cpp
 )
-target_link_libraries(${PROJECT_NAME} PRIVATE glfw
-                      ${GLFW_LIBRARIES} ${GLAD_LIBRARIES})
+target_link_libraries(  ${PROJECT_NAME} PRIVATE glfw
+                        ${GLFW_LIBRARIES} ${GLAD_LIBRARIES}
+                        nlohmann_json::nlohmann_json)
 target_sources(${PROJECT_NAME} PRIVATE 
     ${FULL_SOURCES_LIST})
 list(APPEND ENGINE_HEADERS 
