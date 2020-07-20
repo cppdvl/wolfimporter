@@ -39,7 +39,7 @@ const json MTLParser(const Wolf::File& file){
         
         pMtlParseFunction add_reference_mat
         {[&](const auto& args){
-            reference_material = args[0];
+            this->reference_material = args[0];
             jsonData[reference_material] = json::object();
         }};
 
@@ -48,7 +48,7 @@ const json MTLParser(const Wolf::File& file){
             auto ss = std::istringstream{args[1]};
             float f;
             ss >> f;
-            jsonData[reference_material][args[0]] = f;
+            this->jsonData[reference_material][args[0]] = f;
         }};
 
         pMtlParseFunction add_int_value
@@ -56,12 +56,12 @@ const json MTLParser(const Wolf::File& file){
             auto ss = std::istringstream{args[1]};
             unsigned int ui;
             ss >> ui;
-            jsonData[reference_material][args[0]] = ui;
+            this->jsonData[reference_material][args[0]] = ui;
         }};
 
         pMtlParseFunction add_string_value
         {[&](const auto& args){
-            jsonData[reference_material][args[0]] = args[1];
+            this->jsonData[reference_material][args[0]] = args[1];
         }};
         
         pMtlParseFunction add_float_vector_value
@@ -69,7 +69,7 @@ const json MTLParser(const Wolf::File& file){
             auto vsVectorToParse = std::vector<std::string>(args.begin() + 1, args.end());
             auto vfVectorToParse = std::vector<float>{};
             Wolf::VectorUtils::pushvectorf(vfVectorToParse, vsVectorToParse, 3);
-            jsonData[reference_material][args[0]] = std::array{
+            this->jsonData[reference_material][args[0]] = std::array{
                 vfVectorToParse[0], 
                 vfVectorToParse[1], 
                 vfVectorToParse[2]};
@@ -79,7 +79,7 @@ const json MTLParser(const Wolf::File& file){
         std::function<void()>
         print_model
         {[&](){
-            std::cout << std::setw(4) << jsonData << std::endl;
+            std::cout << std::setw(4) << this->jsonData << std::endl;
         }};
         std::map<std::string, pMtlParseFunction> linetype_function{
             std::make_pair("newmtl", add_reference_mat),
@@ -97,7 +97,7 @@ const json MTLParser(const Wolf::File& file){
         {[&](auto& command_line, auto& command_line_splitted){
             if (command_line.empty()) return true;
             command_line_splitted = Wolf::StringUtils::split(command_line,' ');
-            return linetype_function.find(command_line_splitted[0]) == linetype_function.end();
+            return this->linetype_function.find(command_line_splitted[0]) == linetype_function.end();
         }};
 
     }rawmaterial;

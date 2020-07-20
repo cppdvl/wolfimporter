@@ -1,3 +1,4 @@
+#include <filesystem>   // std::filesystem
 #include <functional>   // std::function
 #include <iostream>     // std::cout, std::endl
 #include <map>          // std::map
@@ -84,6 +85,14 @@ namespace Wolf::Cli{
 
         std::cout << "Configuration = " << wolfEngineOptions.defaultConfiguration << endl;
         std::cout << "Resources = " << wolfEngineOptions.defaultSandbox << endl;
+
+#if defined(_WIN32) || defined(_WIN64)
+        
+        std::cout << "Current Working Directory: " << std::filesystem::current_path();
+        wolfEngineOptions.defaultConfiguration = std::filesystem::absolute(wolfEngineOptions.defaultConfiguration).string();
+        wolfEngineOptions.defaultSandbox = std::filesystem::absolute(wolfEngineOptions.defaultSandbox).string();
+
+#endif
 
         return wolfEngineOptions;
     }
