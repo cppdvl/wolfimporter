@@ -82,7 +82,12 @@ Wolf::Engine::SPResource Wolf::Engine::ResourceManager::spGetResource(const std:
         std::exit(-1);        
     } 
     auto url_wpresource = sAlias_xResourceAlias[resourceName];
-    if (_bResourceStillLazy(url_wpresource)) return _spGetResource(resourceName);
+
+    auto resourceIsLazy = _bResourceStillLazy(url_wpresource);
+    
+    if (resourceIsLazy) 
+        return _spGetResource(resourceName);
+    
     auto spResource = url_wpresource.second.lock();
     return spResource;
 }

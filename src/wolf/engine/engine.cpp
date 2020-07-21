@@ -67,10 +67,7 @@ namespace Wolf::Engine {
 
 
         //Ok Now we have an opengl contexted screen and some resources (though they are lazy, but they are there).
-        if(!fn)
-            createDefaultScene();
-        else
-            fn();
+		fn();
 
         
 

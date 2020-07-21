@@ -10,6 +10,8 @@ Wolf::Engine::Scene::Scene(std::string const& resourceName){
 
     auto rmi = Wolf::Engine::ResourceManager::spGetInstance();
     
+    //This is a default Scene.
+    auto sceneResource = rmi->spGetResource(resourceName);
 
 
 }

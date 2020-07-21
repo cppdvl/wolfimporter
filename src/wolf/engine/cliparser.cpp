@@ -87,11 +87,12 @@ namespace Wolf::Cli{
         std::cout << "Resources = " << wolfEngineOptions.defaultSandbox << endl;
 
 #if defined(_WIN32) || defined(_WIN64)
-        
-        std::cout << "Current Working Directory: " << std::filesystem::current_path();
+
+#ifndef NDEBUG
+        std::cout << "Current Working Directory: " << std::filesystem::current_path() << std::endl;
         wolfEngineOptions.defaultConfiguration = std::filesystem::absolute(wolfEngineOptions.defaultConfiguration).string();
         wolfEngineOptions.defaultSandbox = std::filesystem::absolute(wolfEngineOptions.defaultSandbox).string();
-
+#endif
 #endif
 
         return wolfEngineOptions;

@@ -18,7 +18,10 @@ namespace Wolf::Engine {
         OK,
         ERROR
     };
-    Wolf::Engine::ReturnCode Init(int argc, const char ** argv, std::function<void()> fn = [](){});
+
+    void createDefaultScene();
+
+    Wolf::Engine::ReturnCode Init(int argc, const char** argv, std::function<void()> fn = []() { createDefaultScene(); });
     Wolf::Engine::ReturnCode Run();
     Wolf::Engine::ReturnCode Pause();
     Wolf::Engine::ReturnCode Stop();
