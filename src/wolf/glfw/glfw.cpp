@@ -119,7 +119,7 @@ namespace Wolf::GLFW{
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
 // ---------------------------------------------------------------------------------------------
-    void framebuffer_size_callback(GLFWwindow* , int width, int height)
+    void framebuffer_size_callback(GLFWwindow* , int /*width*/, int /*height*/)
     {
     // make sure the viewport matches the new window dimensions; note that width and 
     // height will be significantly larger than specified on retina displays.
@@ -130,7 +130,7 @@ namespace Wolf::GLFW{
 
 // glfw: whenever the mouse moves, this callback is called
 // -------------------------------------------------------
-    void mouse_callback(GLFWwindow*, double xpos, double ypos)
+    void mouse_callback(GLFWwindow*, double /*xpos*/, double /*ypos*/)
     {
         /*if (firstMouse)
         {
@@ -151,7 +151,7 @@ namespace Wolf::GLFW{
 
     // glfw: whenever the mouse scroll wheel scrolls, this callback is called
     // ----------------------------------------------------------------------
-    void scroll_callback(GLFWwindow*, double, double yoffset)
+    void scroll_callback(GLFWwindow*, double, double /*yoffset*/)
     {
         //camera.ProcessMouseScroll(yoffset);
     }

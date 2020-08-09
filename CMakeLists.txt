@@ -46,8 +46,24 @@ add_library(${PROJECT_NAME}
     src/wolf/engine/engine.cpp
     src/wolf/engine/cliparser.cpp
     src/wolf/engine/sandboxmapper.cpp
-    src/wolf/engine/resourcemanager.cpp
-)
+    src/wolf/engine/resources/resourcemanager.cpp
+    src/wolf/import/resourceloader.cpp
+        include/wolf/import/resources/resourceloader_json.hpp
+        src/wolf/import/resources/resourceloader_json.cpp
+        src/wolf/engine/ecs/component.cpp
+        include/wolf/engine/ecs/component.hpp
+        src/wolf/engine/id.cpp include/wolf/engine/id.hpp
+        src/wolf/engine/ecs/component/component_name.cpp
+        include/wolf/engine/ecs/component/component_name.hpp
+        src/wolf/engine/ecs/component/component_mesh.cpp
+        include/wolf/engine/ecs/component/component_mesh.hpp
+        src/wolf/engine/resources/resourcemesh.cpp
+        include/wolf/engine/resources/resourcemesh.hpp
+        src/wolf/engine/resources/resource.cpp
+        include/wolf/engine/resources/resource.hpp
+        src/wolf/engine/resources/resourcenameutils.cpp
+        include/wolf/engine/resources/resourcenameutils.hpp
+        )
 target_link_libraries(  ${PROJECT_NAME} PRIVATE glfw
                         ${GLFW_LIBRARIES} ${GLAD_LIBRARIES}
                         nlohmann_json::nlohmann_json)

@@ -1,29 +1,25 @@
 {
     "RESOURCE_TYPE" : "SCENE",
     "RESOURCE_DATA" : {
-        "entities" : [
-            {
-                "entity_name_component" : "TheCube",
-                "mesh_component" : "wolfePrimitives//cube",
-                "kinematic_component" : {
-                    "location"    : [0, 0.5, 0.0],
-                    "speed"       : [0, 0, 0],
-                    "acceleration": [0, 0, 0]
-                }
-            },
-            {
-                "entity_name_component" : "TheFloor",
-                "mesh_component" : "wolfePrimitives//plane",
-                "kinematic_component" : {
-                    "location"    : [0, 0.0, 0.0],
-                    "speed"       : [0, 0, 0],
-                    "acceleration": [0, 0, 0]
-                }
-            },
-            {
-                "entity_name_component" : "MainCamera",
-                "reference" : "wolfeCameras//0"
+        "TheCube" : {
+            "mesh_component" : "wolfePrimitives//cube",
+            "kinematic_component" : {
+                "location"    : [0, 0.5, 0.0],
+                "speed"       : [0, 0, 0],
+                "acceleration": [0, 0, 0]
             }
-        ]
+        },
+        "TheFloor" : {
+            "mesh_component" : "wolfePrimitives//plane",
+            "kinematic_component" : {
+                "location"    : [0, 0.0, 0.0],
+                "speed"       : [0, 0, 0],
+                "acceleration": [0, 0, 0]
+            }
+        },
+
+        "MainCamera" : {
+            "expand_components" : "wolfeCameras//0"
+        }
     }
 }

@@ -1,10 +1,13 @@
-#ifndef __WOLF_GLFW__
-#define __WOLF_GLFW__
 
-#include <GLFW/glfw3.h>
+#pragma once
 #include <string>
+#include <functional>
+#include <GLFW/glfw3.h>
 namespace Wolf {
     namespace GLFW{
+        void framebuffer_size_callback(GLFWwindow* , int, int);
+        void scroll_callback(GLFWwindow*, double, double);
+        void mouse_callback(GLFWwindow*, double, double);
         static GLFWwindow* pWindow{nullptr};
         struct GLFWInitConfiguration{
             struct {
@@ -18,9 +21,10 @@ namespace Wolf {
                 unsigned int height{600};
             }mSize;
             std::string mWindowTitle{"WolfEngine - GLFW Powered"};
-            GLFWframebuffersizefun mFrameBufferSizeCallBack;
-            GLFWcursorposfun mMouseCallBack;
-            GLFWscrollfun mScrollCallBack;
+
+            GLFWframebuffersizefun mFrameBufferSizeCallBack{Wolf::GLFW::framebuffer_size_callback};
+            GLFWcursorposfun mMouseCallBack{Wolf::GLFW::mouse_callback};
+            GLFWscrollfun mScrollCallBack{Wolf::GLFW::scroll_callback};
         };
         void GLFWTerminate(std::function<void(void)> terminationHandler = [](){});
         GLFWwindow* GLFWCreateWindow(const Wolf::GLFW::GLFWWindowConfiguration& windowConfiguration);
@@ -36,5 +40,4 @@ namespace Wolf {
 }
 
 
-#endif
 

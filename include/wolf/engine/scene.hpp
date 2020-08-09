@@ -3,14 +3,14 @@
 
 #include <string>
 #include <memory>
-#include <wolf/engine/entity.hpp>
+#include <wolf/engine/ecs/entity.hpp>
 
 namespace Wolf::Engine {
     
     class Scene;
     using SPScene = std::shared_ptr<Wolf::Engine::Scene>;
     
-    class Scene : public Wolf::Engine::VWPEntity {
+    class Scene : public Wolf::Engine::ECS::VWPEntity {
     protected:        
         unsigned long sceneId{0};              
     public:

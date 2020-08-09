@@ -10,7 +10,7 @@
 #include <wolf/engine/clipparser.hpp>
 
 //--- The following includes need to be gone some day ---//
-#include <wolf/engine/resourcemanager.hpp>
+#include <wolf/engine/resources/resourcemanager.hpp>
 
 namespace Wolf::Engine {
 
@@ -25,8 +25,6 @@ namespace Wolf::Engine {
     Wolf::Engine::ReturnCode Run();
     Wolf::Engine::ReturnCode Pause();
     Wolf::Engine::ReturnCode Stop();
-
-    
 
 
     /**** This is for test purposes, should be gone some day *****/
