@@ -3,7 +3,7 @@
 //
 #include <algorithm>
 #include <iostream>
-#include "wolf/engine/resources/resourcenameutils.hpp"
+#include <wolf/resources/resourcenameutils.hpp>
 Wolf::Engine::ResourceName::ResourceName(std::string resourcename) : mResourceAlias(resourcename){
 
     while (true){

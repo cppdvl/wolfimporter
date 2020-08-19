@@ -6,11 +6,11 @@
 
 
 #include <wolf/glfw/glfw.hpp>
-#include <wolf/engine/scene.hpp>
+#include <wolf/ecs/scene.hpp>
 #include <wolf/engine/clipparser.hpp>
 
 //--- The following includes need to be gone some day ---//
-#include <wolf/engine/resources/resourcemanager.hpp>
+#include <wolf/resources/resourcemanager.hpp>
 
 namespace Wolf::Engine {
 

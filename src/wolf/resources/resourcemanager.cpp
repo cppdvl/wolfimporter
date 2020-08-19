@@ -7,11 +7,10 @@
 #include <filesystem>
 #include <unordered_map>
 
-#include <wolf/import/resourceloader.hpp>
-#include <wolf/engine/resources/resourcemanager.hpp>
-#include <wolf/engine/resources/resourcenameutils.hpp>
+#include <wolf/resources/resourcemanager.hpp>
+#include <wolf/resources/resourcefactory.hpp>
 
-Wolf::Engine::SPResource Wolf::Engine::ResourceManager::_spGetResourceFromAlias(const std::string& resourceName) {
+Wolf::Resources::SPResource Wolf::Resources::ResourceManager::_spGetResourceFromAlias(const std::string& resourceName) {
 
     auto bOk = AliasIsRegistered(resourceName);
     if(!bOk){
@@ -27,13 +26,13 @@ Wolf::Engine::SPResource Wolf::Engine::ResourceManager::_spGetResourceFromAlias(
     if (spResource) return spResource;
 
     //TODO: Call a Resource Factory to Determine How to Create a Resource out of the resourcename and assign that to spResource */
-    spResource = Wolf::Engine::ResourceFactory::CreateResource(pairUrlWPResource.first);
+    spResource = Wolf::Resources::ResourceFactory::CreateResource(pairUrlWPResource.first);
     mapUrlSPResource[pairUrlWPResource.first] = spResource;
     return spResource;
 
 }
 
-void Wolf::Engine::ResourceManager::BindAliasToUrl(const std::string &resourceName, const std::string &resourceUrl) {
+void Wolf::Resources::ResourceManager::BindAliasToUrl(const std::string &resourceName, const std::string &resourceUrl) {
 
     //Check alias is not registered yet.
     auto resourceIsNotRegistered = !AliasIsRegistered(resourceName);
@@ -58,11 +57,11 @@ void Wolf::Engine::ResourceManager::BindAliasToUrl(const std::string &resourceNa
 
 }
 
-bool Wolf::Engine::ResourceManager::AliasIsRegistered(const std::string &resourceName) {
+bool Wolf::Resources::ResourceManager::AliasIsRegistered(const std::string &resourceName) {
     return mapAlias_PairUrlWPResource.find(resourceName) != mapAlias_PairUrlWPResource.end();
 }
 
-Wolf::Engine::SPResource Wolf::Engine::ResourceManager::operator[](const std::string &resourceName) {
+Wolf::Resources::SPResource Wolf::Resources::ResourceManager::operator[](const std::string &resourceName) {
 
         return _spGetResourceFromAlias(resourceName);
 

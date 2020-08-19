@@ -46,24 +46,25 @@ add_library(${PROJECT_NAME}
     src/wolf/engine/engine.cpp
     src/wolf/engine/cliparser.cpp
     src/wolf/engine/sandboxmapper.cpp
-    src/wolf/engine/resources/resourcemanager.cpp
+        src/wolf/resources/resourcemanager.cpp
     src/wolf/import/resourceloader.cpp
+        include/wolf/engine/gamemanager.hpp
         include/wolf/import/resources/resourceloader_json.hpp
         src/wolf/import/resources/resourceloader_json.cpp
-        src/wolf/engine/ecs/component.cpp
-        include/wolf/engine/ecs/component.hpp
-        src/wolf/engine/id.cpp include/wolf/engine/id.hpp
-        src/wolf/engine/ecs/component/component_name.cpp
-        include/wolf/engine/ecs/component/component_name.hpp
-        src/wolf/engine/ecs/component/component_mesh.cpp
-        include/wolf/engine/ecs/component/component_mesh.hpp
-        src/wolf/engine/resources/resourcemesh.cpp
-        include/wolf/engine/resources/resourcemesh.hpp
-        src/wolf/engine/resources/resource.cpp
-        include/wolf/engine/resources/resource.hpp
-        src/wolf/engine/resources/resourcenameutils.cpp
-        include/wolf/engine/resources/resourcenameutils.hpp
-        )
+        src/wolf/ecs/component/component.cpp
+        include/wolf/ecs/component/component.hpp
+        src/wolf/id.cpp include/wolf/id.hpp
+        src/wolf/ecs/component/component_name.cpp
+        include/wolf/ecs/component/component_name.hpp
+        src/wolf/ecs/component/component_mesh.cpp
+        include/wolf/ecs/component/component_mesh.hpp
+        src/wolf/resources/resourcemesh.cpp
+        include/wolf/resources/resourcemesh.hpp
+        src/wolf/resources/resource.cpp
+        include/wolf/resources/resource.hpp
+        src/wolf/resources/resourcenameutils.cpp
+        include/wolf/resources/resourcenameutils.hpp
+        include/wolf/ecs/scenebuilder.cpp include/wolf/ecs/scenebuilder.hpp include/wolf/resources/resourcejson.hpp include/wolf/resources/resourcefactory.hpp src/wolf/resources/resourcefactory.cpp src/wolf/resources/resourcejson.cpp)
 target_link_libraries(  ${PROJECT_NAME} PRIVATE glfw
                         ${GLFW_LIBRARIES} ${GLAD_LIBRARIES}
                         nlohmann_json::nlohmann_json)

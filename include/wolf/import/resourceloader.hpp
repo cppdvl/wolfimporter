@@ -6,7 +6,7 @@
 #define WOLF_RESOURCELOADER_HPP
 
 #include <string>
-#include <wolf/engine/resources/resourcemanager.hpp>
+#include <wolf/resources/resourcemanager.hpp>
 
 namespace Wolf::Import {
     class ResourceLoader {
@@ -26,7 +26,7 @@ namespace Wolf::Import {
 
     public:
         explicit ResourceLoader(const std::string& resourceName, const std::string& resourceExtension);
-        virtual Wolf::Engine::SPResource LoadResource() = 0;
+        virtual Wolf::Resources::SPResource LoadResource() = 0;
 
     };
 

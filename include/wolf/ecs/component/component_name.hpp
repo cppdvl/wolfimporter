@@ -6,10 +6,10 @@
 #define WOLF_COMPONENT_NAME_HPP
 
 #include <string>
-#include <wolf/engine/ecs/component.hpp>
+#include <wolf/ecs/component/component.hpp>
 
-namespace Wolf::Engine::ECS {
-    class ComponentName : public Wolf::Engine::ECS::Component {
+namespace Wolf::ECS {
+    class ComponentName : public Wolf::ECS::Component {
         std::string mName;
     public:
         explicit ComponentName(const std::string&);

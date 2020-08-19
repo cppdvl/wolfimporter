@@ -4,7 +4,7 @@
 
 #ifndef WOLF_RESOURCEMESH_HPP
 #define WOLF_RESOURCEMESH_HPP
-#include <wolf/engine/resources/resourcemanager.hpp>
+#include <wolf/resources/resourcemanager.hpp>
 
 namespace Wolf::Engine {
     class ResourceMesh : public Wolf::Engine::Resource {

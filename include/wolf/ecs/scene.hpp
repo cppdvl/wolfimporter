@@ -3,19 +3,16 @@
 
 #include <string>
 #include <memory>
-#include <wolf/engine/ecs/entity.hpp>
+#include <wolf/ecs/entity.hpp>
 
-namespace Wolf::Engine {
+namespace Wolf::ECS {
     
-    class Scene;
-    using SPScene = std::shared_ptr<Wolf::Engine::Scene>;
-    
-    class Scene : public Wolf::Engine::ECS::VWPEntity {
-    protected:        
-        unsigned long sceneId{0};              
+    class Scene : public Wolf::ECS::VWPEntity {
+    protected:
+        unsigned long sceneId{0};
     public:
         Scene(){
-            
+
         }
         Scene(std::string const& resourceName);
         //calbacks
@@ -25,6 +22,8 @@ namespace Wolf::Engine {
         virtual void finish();
         virtual ~Scene() {}
     };
+
+    using SPScene = std::shared_ptr<Wolf::ECS::Scene>;
 
 }
 

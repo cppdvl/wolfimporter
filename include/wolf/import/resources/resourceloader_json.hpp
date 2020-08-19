@@ -14,7 +14,7 @@ namespace Wolf::Import{
         ResourceLoaderJSON(const std::string& resourceName, const std::string& resourceExtension) : ResourceLoader(resourceName, resourceExtension){
 
         }
-        virtual Wolf::Engine::SPResource LoadResource() override;
+        virtual Wolf::Resources::SPResource LoadResource() override;
 
     };
 

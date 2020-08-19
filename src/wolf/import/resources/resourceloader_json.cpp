@@ -8,21 +8,21 @@
 #include <functional>
 #include <nlohmann/json.hpp>
 
-#include <wolf/engine/ecs/component/component_name.hpp>
+#include <wolf/ecs/component/component_name.hpp>
 #include <wolf/import/resources/resourceloader_json.hpp>
 
 using json = nlohmann::json;
 
-Wolf::Engine::SPResource Load_RESOURCE_TYPE_SCENE(const json& RESOURCE_DATA);
+Wolf::Resources::SPResource Load_RESOURCE_TYPE_SCENE(const json& RESOURCE_DATA);
 
 struct JSON_RESOURCE_DATA_CALLBACKS {
-    inline static std::map <std::string, std::function<Wolf::Engine::SPResource(const json&)>> CB{
+    inline static std::map <std::string, std::function<Wolf::Resources::SPResource(const json&)>> CB{
         std::make_pair("SCENE",Load_RESOURCE_TYPE_SCENE)
     };
 };
 
 
-Wolf::Engine::SPResource Wolf::Import::ResourceLoaderJSON::LoadResource() {
+Wolf::Resources::SPResource Wolf::Import::ResourceLoaderJSON::LoadResource() {
 
     json j;
     std::ifstream i(mResourcePath);
@@ -44,34 +44,3 @@ Wolf::Engine::SPResource Wolf::Import::ResourceLoaderJSON::LoadResource() {
 
 }
 
-Wolf::Engine::SPResource Load_RESOURCE_TYPE_SCENE(const json& j){
-
-    auto entities = j["entities"];
-    auto vwpEntities = Wolf::Engine::ECS::VWPEntity {};
-    for (auto& entity : entities){
-        auto vwpComponents = Wolf::Engine::ECS::VWPComponent{};
-        for (auto& key_value  : entity.items()){
-            auto key = key_value.key();
-            auto value = key_value.value();
-            if (key == "entity_name_component"){
-
-                Wolf::Engine::ECS::SPComponent spComponentName = std::make_shared<Wolf::Engine::ECS::ComponentName>(value);
-                vwpComponents.push_back(spComponentName);
-
-            } else if (key == "mesh_component"){
-
-                auto rmi = Wolf::Engine::ResourceManager::spGetInstance();
-
-                //auto& resourceName = value;
-                //auto spResource = nullptr;//rmi->spGetResource(resourceName);
-
-                /*Wolf::Engine::ECS::SPComponent spComponentMesh = std::make_shared<Wolf::Engine::ECS::Component>(spResource->getId());
-                vwpComponents.push_back(spComponentMesh);*/
-
-            }
-        }
-
-    }
-
-    return nullptr;
-}

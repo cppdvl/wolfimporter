@@ -5,10 +5,10 @@
 #ifndef WOLF_COMPONENT_MESH_HPP
 #define WOLF_COMPONENT_MESH_HPP
 
-#include <wolf/engine/ecs/component.hpp>
+#include <wolf/ecs/component/component.hpp>
 
-namespace Wolf::Engine::ECS {
-    class ComponentMesh : public Wolf::Engine::ECS::Component{
+namespace Wolf::ECS {
+    class ComponentMesh : public Wolf::ECS::Component{
 
 
     };

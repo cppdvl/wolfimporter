@@ -2,13 +2,12 @@
 // Created by User on 7/25/2020.
 //
 
-#ifndef WOLF_ID_HPP
-#define WOLF_ID_HPP
+#pragma once
 #include <wolf/pttrns/singleton.hpp>
 
-namespace Wolf::Engine {
+namespace Wolf {
 
-    class ID : public Wolf::Pttrn::Singleton<Wolf::Engine::ID>{
+    class ID {
         inline static unsigned long sId{0};
         unsigned long mId{0};
     public:
@@ -18,4 +17,3 @@ namespace Wolf::Engine {
     };
 }
 
-#endif //WOLF_ID_HPP
