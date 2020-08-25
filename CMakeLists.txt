@@ -64,7 +64,7 @@ add_library(${PROJECT_NAME}
         include/wolf/resources/resource.hpp
         src/wolf/resources/resourcenameutils.cpp
         include/wolf/resources/resourcenameutils.hpp
-        include/wolf/ecs/scenebuilder.cpp include/wolf/ecs/scenebuilder.hpp include/wolf/resources/resourcejson.hpp include/wolf/resources/resourcefactory.hpp src/wolf/resources/resourcefactory.cpp src/wolf/resources/resourcejson.cpp)
+        include/wolf/ecs/scenebuilder.cpp include/wolf/ecs/scenebuilder.hpp include/wolf/resources/json/resourcejson.hpp include/wolf/resources/resourcefactory.hpp src/wolf/resources/resourcefactory.cpp src/wolf/resources/json/resourcejson.cpp include/wolf/resources/json/resourcejsonvisitor.cpp include/wolf/resources/json/resourcejsonvisitor.hpp src/wolf/ecs/ecsnode.cpp include/wolf/ecs/ecsnode.hpp)
 target_link_libraries(  ${PROJECT_NAME} PRIVATE glfw
                         ${GLFW_LIBRARIES} ${GLAD_LIBRARIES}
                         nlohmann_json::nlohmann_json)

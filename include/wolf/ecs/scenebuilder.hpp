@@ -5,7 +5,7 @@
 #ifndef WOLF_SCENEBUILDER_HPP
 #define WOLF_SCENEBUILDER_HPP
 #include <wolf/ecs/scene.hpp>
-#include <wolf/resources/resourcejson.hpp>
+#include <wolf/resources/json/resourcejson.hpp>
 namespace Wolf::ECS {
 
     class SceneBuilder {

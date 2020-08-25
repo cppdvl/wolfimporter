@@ -2,7 +2,7 @@
 // Created by User on 8/19/2020.
 //
 
-#include <wolf/resources/resourcejson.hpp>
+#include <wolf/resources/json/resourcejson.hpp>
 #include <wolf/resources/resourcefactory.hpp>
 Wolf::Resources::SPResource Wolf::Resources::ResourceFactory::CreateResource(std::string const& url){
 

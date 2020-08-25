@@ -7,19 +7,17 @@
 
 #include <memory>
 #include <vector>
-#include <wolf/id.hpp>
+#include <wolf/ecs/ecsnode.hpp>
 
 namespace Wolf::ECS {
 
-    class Component : public Wolf::ID {
+    class Component : public Wolf::ECS::ECSNode {
     public:
         Component(const unsigned int& resourceId = 0);
     protected:
         unsigned int mResourceId{0};
     };
-
-    using WPComponent = std::weak_ptr<Wolf::ECS::Component>;
     using SPComponent = std::shared_ptr<Wolf::ECS::Component>;
-    using VWPComponent = std::vector<WPComponent>;
+
 }
 #endif //WOLF_COMPONENT_HPP

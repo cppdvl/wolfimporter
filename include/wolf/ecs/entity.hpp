@@ -11,8 +11,7 @@ class Component;
 
 namespace Wolf::ECS {
 
-    class Entity : public std::vector<Wolf::ECS::Component> {
-
+    class Entity : public ECSNode, std::vector<Wolf::ECS::SPComponent>{
     };
     using WPEntity  = std::weak_ptr<Wolf::ECS::Entity>;
     using VWPEntity = std::vector<WPEntity>;

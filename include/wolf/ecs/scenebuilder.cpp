@@ -16,10 +16,5 @@ void Wolf::ECS::SceneBuilder::AddEntity(Wolf::ECS::Scene &scn, const std::string
 
 void Wolf::ECS::SceneBuilder::BuildScene(Wolf::ECS::Scene &scn, const Wolf::Resources::ResourceJSON & resjsn) {
 
-    auto& entities = resjsn.resourceData;
-
-    for (auto& [entityname, jsnentity] : entities.items()){
-        Wolf::ECS::SceneBuilder::AddEntity(scn, entityname, jsnentity);
-    }
 
 }

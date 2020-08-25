@@ -5,7 +5,7 @@
 #include <nlohmann/json.hpp>
 
 #include <wolf/ecs/scene.hpp>
-#include <wolf/resources/resourcejson.hpp>
+#include <wolf/resources/json/resourcejson.hpp>
 #include <wolf/resources/resourcemanager.hpp>
 Wolf::ECS::Scene::Scene(std::string const& resourceName){
 
@@ -25,7 +25,7 @@ Wolf::ECS::Scene::Scene(std::string const& resourceName){
         _assert("Fetched Json not a scene", __FILE__, __LINE__);
         assert(bCond);
     }
-    for(auto&[k,e]:rpSceneResourcesJSON->resourceData.items()){
+    for(auto&[k,e]:rpSceneResourcesJSON->items()){
         std::cout << k << std::endl;
         auto name = k;
 

@@ -6,7 +6,6 @@
 
 Wolf::ECS::Component::Component(const unsigned int &resourceId)
 :
-Wolf::ID(),
 mResourceId(resourceId){
 
 

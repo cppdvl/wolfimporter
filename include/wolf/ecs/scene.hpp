@@ -7,8 +7,9 @@
 
 namespace Wolf::ECS {
     
-    class Scene : public Wolf::ECS::VWPEntity {
+class Scene : public Wolf::ECS::ECSNode{
     protected:
+        Wolf::ECS::VWPEntity mEntities;
         unsigned long sceneId{0};
     public:
         Scene(){
