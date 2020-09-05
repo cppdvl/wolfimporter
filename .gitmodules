@@ -17,3 +17,6 @@
 [submodule "Vendor/signalslot"]
 	path = Vendor/signalslot
 	url = git@github.com:IndieLightAndMagic/Signals-And-Octo-Slots.git
+[submodule "Vendor/log"]
+	path = Vendor/log
+	url = git@github.com:gabime/spdlog.git
