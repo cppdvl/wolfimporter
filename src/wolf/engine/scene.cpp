@@ -18,12 +18,7 @@ Wolf::ECS::Scene::Scene(std::string const& resourceName){
     auto [spSceneResourcesJSONTypeString, spSceneResourcesJSONType] = spSceneResourcesJSON->getType();
     spdlog::info("spSceneResourcesJSON is a: {:s}", spSceneResourcesJSONTypeString);
 
-    auto bCond = spSceneResourcesJSONType == Wolf::Resources::ResourceJSON::RESOURCE_TYPE::SCENE;
-    if (!bCond){
-        std::cout << "The fetched JSON [" << resourceName << "] is not a scene!!!" << std::endl;
-        _assert("Fetched Json not a scene", __FILE__, __LINE__);
-        assert(bCond);
-    }
+    assert(spSceneResourcesJSONType == Wolf::Resources::ResourceJSON::RESOURCE_TYPE::SCENE);
 
     for(auto&[entityName, entityJSon] : spSceneResourcesJSON->items()){
 
