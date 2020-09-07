@@ -18,11 +18,7 @@ namespace Wolf::Engine {
 
         auto rmi = Wolf::Resources::ResourceManager::spGetInstance();
         std::ifstream i(sandboxPath);
-        if (!i){
-            std::cout << "Problem Opening " << sandboxPath << std::endl;
-            _assert("IO ERROR", __FILE__, __LINE__);
-            assert(i);
-        }
+        assert(i.is_open());
         nlohmann::json j;
         i >> j;
         auto resourceType = j["RESOURCE_TYPE"];
