@@ -4,17 +4,17 @@
 
 #include "scenebuilder.hpp"
 
-void Wolf::ECS::SceneBuilder::AddEntity(Wolf::ECS::Scene &scn, const std::string entityName, nlohmann::json jsnEntity) {
+void Wolf::ECS::SceneBuilder::AddEntity(Wolf::ECS::Scene &/*scn*/, const std::string /*entityName*/, nlohmann::json /*jsnEntity*/) {
 
     auto entity = Wolf::ECS::Entity{};
 
-    for ( auto& [componentName, component] : jsnEntity.items()){
+    /*for ( auto& [componentName, component] : jsnEntity.items()){
 
-    }
+    }*/
 
 }
 
-void Wolf::ECS::SceneBuilder::BuildScene(Wolf::ECS::Scene &scn, const Wolf::Resources::ResourceJSON & resjsn) {
+void Wolf::ECS::SceneBuilder::BuildScene(Wolf::ECS::Scene&/*scn*/, const Wolf::Resources::ResourceJSON& /*resjsn*/) {
 
 
 }

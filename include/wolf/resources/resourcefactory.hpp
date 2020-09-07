@@ -10,6 +10,7 @@ namespace Wolf::Resources {
     class ResourceFactory {
     public:
         static SPResource CreateResource(const std::string& urlName);
+        static unsigned long CreateMeshResource(const nlohmann::json& j);
     };
 
 }

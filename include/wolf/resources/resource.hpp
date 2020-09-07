@@ -15,7 +15,7 @@ namespace Wolf::Resources {
 
     public:
         Resource(){}
-
+        virtual unsigned long getId() { return mID.getId(); }
     };
 
     using SPResource = std::shared_ptr<Wolf::Resources::Resource>;

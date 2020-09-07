@@ -16,7 +16,7 @@
 using json = nlohmann::json;
 std::array<unsigned int, 3> GenerateVTNArray(const std::string& triangleVertexVTNKey){
 
-    auto vstring_v_t_n = Wolf::StringUtils::split(triangleVertexVTNKey,'/');
+    auto vstring_v_t_n = Wolf::Utils::StringUtils::split(triangleVertexVTNKey,'/');
     auto arruint_v_t_n = std::array<unsigned int, 3>{0u, 0u, 0u};
     
     std::stringstream{vstring_v_t_n[0]} >> arruint_v_t_n[0]; 

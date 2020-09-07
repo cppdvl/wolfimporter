@@ -3,14 +3,13 @@
 #include <fstream>
 #include <iostream>
 #include <functional>
-#include <signalslot.h>
 #include <nlohmann/json.hpp>
 
 #include <wolf/ecs/scene.hpp>
 #include <wolf/engine/engine.hpp>
-#include <wolf/engine/clipparser.hpp>
 #include <wolf/engine/gamemanager.hpp>
-#include <wolf/resources/resourcemanager.hpp>
+
+#include <spdlog/spdlog.h>
 
 namespace Wolf::Engine {
     
@@ -28,14 +27,18 @@ namespace Wolf::Engine {
         i >> j;
         auto resourceType = j["RESOURCE_TYPE"];
         auto resourceIsMapping = resourceType == "MAPPING";
-        if (!resourceIsMapping){
-            std::cout << "Resource Type of " << sandboxPath << std::endl;
-            _assert("Resource Type Not MAPPING", __FILE__, __LINE__);
-            assert(resourceIsMapping);
-        }
+        assert(resourceIsMapping);
+
         auto resourceData = j["RESOURCE_DATA"];
+
         for (auto resourceDataItem : resourceData.items()){
-            rmi->BindAliasToUrl(resourceDataItem.key(), resourceDataItem.value());
+
+            auto& url = resourceDataItem.value();
+            auto& alias = resourceDataItem.key();
+            auto id = rmi->AddResource_JSON(url, alias);
+            auto rawpointer = (*rmi)[id].get();
+            spdlog::info("Added Resource [ResourceJSON] id: {:x} @0x{:x}", id, (ptrdiff_t) rawpointer);
+
         }
 
     }

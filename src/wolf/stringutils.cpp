@@ -1,32 +1,45 @@
 #include <map>
+#include <string>
 #include <vector>
 #include <sstream>
 
-namespace Wolf{
-    namespace StringUtils {
-		
-		std::vector<std::string> split(const std::string& s, char delim){
-			
-			auto ss = std::istringstream{s};
-			auto ssplit = std::vector<std::string>{};
-			auto stringtoken = std::string{};
-			while (std::getline(ss, stringtoken, delim)) ssplit.push_back(stringtoken);
-			return ssplit;
-		
-		}
-		std::string join(std::vector<std::string> vs, char c, unsigned int firstindex){
-			std::string acc{};
-			
-			for (auto &s : vs){
-				if (firstindex) {
-					firstindex--;
-					continue;
-				}
-				acc += s;
-				acc += std::string{c};
-			}
-			return acc;
-		}
-        
-	}
+namespace Wolf::Utils::StringUtils {
+
+    std::vector<std::string> split(const std::string& s, const std::string& delim){
+
+        std::vector<std::string> ssplit{};
+        unsigned long long tokenfound = 1;
+        unsigned long long lastfound = 0;
+        auto delimsize = delim.size();
+
+        while (tokenfound != std::string::npos){
+            tokenfound = s.find(delim, tokenfound);
+            auto bnotfound = tokenfound == std::string::npos;
+            ssplit.push_back(s.substr(lastfound, bnotfound ? s.size() - lastfound : tokenfound - lastfound));
+            if (bnotfound) continue;                
+            tokenfound += delimsize;
+            lastfound = tokenfound;
+        }
+        return ssplit;
+
+    }
+    std::string join(std::vector<std::string> vs, const std::string& delim, int firstindex = 0, int lastindex = 0){
+        std::string acc{};
+        if (firstindex < 0) {
+            firstindex = vs.size() + firstindex;
+            if (firstindex < 0) firstindex = 0;
+        } 
+        if (lastindex < 0) {
+            lastindex = vs.size() + lastindex;
+            if (lastindex <= 0) lastindex = vs.size() - 1; 
+        } else if (lastindex == 0) {
+            lastindex = vs.size() - 1;
+        }
+        for (auto index = firstindex; index <= lastindex; ++index){
+            acc += vs[index];
+            if (index < lastindex) acc+= delim;
+        }
+        return acc;
+    }
+
 }

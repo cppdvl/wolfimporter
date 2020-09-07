@@ -4,6 +4,8 @@
 
 #include <wolf/resources/json/resourcejson.hpp>
 #include <wolf/resources/resourcefactory.hpp>
+
+
 Wolf::Resources::SPResource Wolf::Resources::ResourceFactory::CreateResource(std::string const& url){
 
     std::string extension;
@@ -17,8 +19,8 @@ Wolf::Resources::SPResource Wolf::Resources::ResourceFactory::CreateResource(std
     }
     if (extension == "json"){
 
-        auto spResource = std::make_shared<Wolf::Resources::ResourceJSON>(url);
-        return std::static_pointer_cast<Wolf::Resources::Resource>(spResource);
+        auto spResource = Wolf::Resources::ResourceJSON::CreateResourceJSon(std::filesystem::path(url));
+        return spResource;
 
     } /*else if (extension == " "){
 
@@ -26,3 +28,8 @@ Wolf::Resources::SPResource Wolf::Resources::ResourceFactory::CreateResource(std
     return nullptr;
 }
 
+unsigned long Wolf::Resources::ResourceFactory::CreateMeshResource(const nlohmann::json &j) {
+
+
+
+}

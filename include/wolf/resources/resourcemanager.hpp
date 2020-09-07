@@ -14,49 +14,18 @@
 
 namespace Wolf::Resources {
 
-    class ResourceManager : public Wolf::Pttrn::Singleton<Wolf::Resources::ResourceManager>{
 
+class ResourceManager : public Wolf::Pttrn::Singleton<Wolf::Resources::ResourceManager> {
 
-        std::unordered_map<std::string, Wolf::Resources::SPResource> mapUrlSPResource{};
-        std::unordered_map<std::string, Wolf::Resources::PairUrlWPResource> mapAlias_PairUrlWPResource{};
+        std::unordered_map<unsigned long, SPResource> midmap{};
+        std::unordered_map<std::string, SPResource> maliasmap{};
+public:
 
-        
-        /**
-         * @brief      This function loads lazy resources that are not yet on memory. 
-         *
-         * @param[in]  <unnamed>  { parameter_description }
-         *
-         * @return     { description_of_the_return_value }
-         */
-        SPResource _spGetResourceFromAlias(const std::string&);
+        unsigned long AddResource(SPResource spResource, const std::string& alias);
+        unsigned long AddResource_JSON(const std::string& url, const std::string& alias);
 
-        /**
-         * @brief      Check if a resource it's already registered.
-         *
-         * @param[in]  resourceName  The resource name
-         *
-         * @return     If resource with is registered returns true, otherwise false.
-         */
-        bool AliasIsRegistered(const std::string& resourceName);
-
-        public:
-
-        /**
-         * @brief      Assign an aliased name to a resource and lazy loads it.
-         *
-         * @param[in]  resourceUrl  The resource url
-         * @param[in]  resourceName The alias
-         *
-         * @return     true, when resourceUrl it's valid (it represents something asset-able) and the resourcename and alias are registered in lazyness. If alias already exists it or not a valid url it will return false
-         */
-        void BindAliasToUrl(const std::string& resourceName, const std::string& resourceUrl);
-
-        /**
-         * @brief Access resources through resourcemanager instance and a subscript index operator: the resource alias.
-         * @param alias
-         * @return
-         */
         SPResource operator[](const std::string& alias);
+        SPResource operator[](const unsigned long& id);
 
 
     };

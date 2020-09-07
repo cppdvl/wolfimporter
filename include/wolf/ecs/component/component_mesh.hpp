@@ -2,17 +2,19 @@
 // Created by User on 7/25/2020.
 //
 
-#ifndef WOLF_COMPONENT_MESH_HPP
-#define WOLF_COMPONENT_MESH_HPP
-
+#pragma once
 #include <wolf/ecs/component/component.hpp>
 
 namespace Wolf::ECS {
     class ComponentMesh : public Wolf::ECS::Component{
+
+    };
+    class ComponentMeshFactory {
+
+    public:
 
 
     };
 }
 
 
-#endif //WOLF_COMPONENT_MESH_HPP

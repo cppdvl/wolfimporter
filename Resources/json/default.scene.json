@@ -17,9 +17,7 @@
                 "acceleration": [0, 0, 0]
             }
         },
+        "MainCamera" :  "wolfeCameras//0"
 
-        "MainCamera" : {
-            "expand_components" : "wolfeCameras//0"
-        }
     }
 }
