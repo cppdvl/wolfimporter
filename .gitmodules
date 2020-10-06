@@ -6,7 +6,6 @@
 	path = Vendor/glad
 	url = https://github.com/Dav1dde/glad.git
     branch = c
-    
 [submodule "Vendor/gui"]
 	path = Vendor/gui
 	url = git@github.com:ocornut/imgui.git
