@@ -14,8 +14,9 @@ namespace Wolf::Resources {
             INVALID,
             MAPPING,
             SCENE,
-            CAMERA,
-            PRIMITIVES_MESH
+            CAMERAS,
+            PRIMITIVES_MESH,
+            JSONOBJECT
         };
 
         explicit ResourceJSON(const nlohmann::json&, const std::string&);
@@ -25,14 +26,16 @@ namespace Wolf::Resources {
         static inline std::unordered_map<std::string, RESOURCE_TYPE> mapStringType{
                 std::make_pair("MAPPING", RESOURCE_TYPE::MAPPING),
                 std::make_pair("SCENE", RESOURCE_TYPE::SCENE),
-                std::make_pair("CAMERA", RESOURCE_TYPE::CAMERA),
-                std::make_pair("PRIMITIVES_MESH", RESOURCE_TYPE::PRIMITIVES_MESH)
+                std::make_pair("CAMERAS", RESOURCE_TYPE::CAMERAS),
+                std::make_pair("PRIMITIVES_MESH", RESOURCE_TYPE::PRIMITIVES_MESH),
+                std::make_pair("JSONOBJECT", RESOURCE_TYPE::JSONOBJECT)
         };
         static inline std::unordered_map<RESOURCE_TYPE, std::string> mapTypeString{
                 std::make_pair(RESOURCE_TYPE::MAPPING, "MAPPING"),
                 std::make_pair(RESOURCE_TYPE::SCENE, "SCENE"),
-                std::make_pair(RESOURCE_TYPE::CAMERA, "CAMERA"),
-                std::make_pair(RESOURCE_TYPE::PRIMITIVES_MESH, "PRIMITIVE_MESH")
+                std::make_pair(RESOURCE_TYPE::CAMERAS, "CAMERAS"),
+                std::make_pair(RESOURCE_TYPE::PRIMITIVES_MESH, "PRIMITIVE_MESH"),
+                std::make_pair(RESOURCE_TYPE::JSONOBJECT, "JSONOBJECT")
         };
 
     public:
@@ -46,8 +49,9 @@ namespace Wolf::Resources {
         ResourceJSON& operator=(const ResourceJSON&) = delete;
         ResourceJSON& operator=(ResourceJSON&&) = delete;
 
-        static SPResource CreateResourceJSon(const std::string&);
-        static SPResource CreateResourceJSon(const std::filesystem::path&);
+        static SPResource CreateResourceJSON(const std::string&);
+        static SPResource CreateResourceJSON(const std::filesystem::path&);
+        static SPResource CreateResourceJSON(const nlohmann::json&);
 
         void PrettyPrint(){
             std::cout << std::setw(4) << static_cast<nlohmann::json>(*this) << std::endl;

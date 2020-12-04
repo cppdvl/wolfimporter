@@ -15,7 +15,7 @@ class Scene : public Wolf::ECS::ECSNode{
         Scene(){
 
         }
-        Scene(std::string const& resourceName);
+        Scene(std::string const& sceneresourcename);
         //calbacks
         virtual void init();
         virtual void update(unsigned int msec_delta);

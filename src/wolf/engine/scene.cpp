@@ -9,23 +9,26 @@
 
 #include <wolf/resources/resourcemanager.hpp>
 
-Wolf::ECS::Scene::Scene(std::string const& resourceName){
+Wolf::ECS::Scene::Scene(std::string const& sceneresourcename){
 
-    auto resourceManager = *(Wolf::Resources::ResourceManager::spGetInstance());
+    auto rm = *(Wolf::Resources::ResourceManager::spGetInstance());
 
     //load the resources for the scene.
-    auto spSceneResourcesJSON = std::dynamic_pointer_cast<Resources::ResourceJSON>(resourceManager[resourceName]) ;
-    auto [spSceneResourcesJSONTypeString, spSceneResourcesJSONType] = spSceneResourcesJSON->getType();
-    spdlog::info("spSceneResourcesJSON is a: {:s}", spSceneResourcesJSONTypeString);
+    auto sceneresourcejson = std::dynamic_pointer_cast<Resources::ResourceJSON>(rm[sceneresourcename]);
+    assert(sceneresourcejson);
 
+    auto [spSceneResourcesJSONTypeString, spSceneResourcesJSONType] = sceneresourcejson->getType();
     assert(spSceneResourcesJSONType == Wolf::Resources::ResourceJSON::RESOURCE_TYPE::SCENE);
 
-    for(auto&[entityName, entityJSon] : spSceneResourcesJSON->items()){
+    //Default Scene to render out
+    spdlog::info("The following is the scene to render: ");
+    sceneresourcejson->PrettyPrint();
 
-        //TODO: We need name resolution in the resource manager, but seemlessly. WolfCamera//0 should be loaded with not knowing it's not yet mounted.
-        if (entityJSon.is_string() == false) std::cout << std::setw(4) << entityJSon << std::endl;
-        else {
-            auto spResourceJSON = resourceManager[entityJSon.get<std::string>()];
+    for(auto&[entityname, entityjson] : sceneresourcejson->items()){
+
+        //EntityJson
+        if (entityjson.is_string()) {
+            auto spresourcejson = rm[entityjson.get<std::string>()];
         }
 
     }

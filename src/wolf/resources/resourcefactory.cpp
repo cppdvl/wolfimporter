@@ -19,7 +19,7 @@ Wolf::Resources::SPResource Wolf::Resources::ResourceFactory::CreateResource(std
     }
     if (extension == "json"){
 
-        auto spResource = Wolf::Resources::ResourceJSON::CreateResourceJSon(std::filesystem::path(url));
+        auto spResource = Wolf::Resources::ResourceJSON::CreateResourceJSON(std::filesystem::path(url));
         return spResource;
 
     } /*else if (extension == " "){
@@ -28,8 +28,13 @@ Wolf::Resources::SPResource Wolf::Resources::ResourceFactory::CreateResource(std
     return nullptr;
 }
 
+Wolf::Resources::SPResource Wolf::Resources::ResourceFactory::CreateResource(const nlohmann::json &j)
+{
+    auto spresource = Wolf::Resources::ResourceJSON::CreateResourceJSON(j);
+    return spresource;
+}
 unsigned long Wolf::Resources::ResourceFactory::CreateMeshResource(const nlohmann::json &j) {
 
 
-
+    return 0;
 }

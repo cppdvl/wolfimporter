@@ -1,7 +1,7 @@
 #include <map>
+#include <regex>
 #include <string>
 #include <vector>
-#include <sstream>
 
 namespace Wolf::Utils::StringUtils {
 
@@ -23,7 +23,7 @@ namespace Wolf::Utils::StringUtils {
         return ssplit;
 
     }
-    std::string join(std::vector<std::string> vs, const std::string& delim, int firstindex = 0, int lastindex = 0){
+    std::string join(std::vector<std::string> vs, const std::string delim, int firstindex = 0, int lastindex = 0){
         std::string acc{};
         if (firstindex < 0) {
             firstindex = vs.size() + firstindex;
@@ -40,6 +40,20 @@ namespace Wolf::Utils::StringUtils {
             if (index < lastindex) acc+= delim;
         }
         return acc;
+    }
+
+    std::tuple<bool, int> bi_isint(const std::string& str){
+
+        auto regex_matched = std::regex_match(str, std::regex{"^[\\s]*[\\+\\-]?[0-9]+[\\s]*$"});
+        return std::make_tuple(regex_matched,regex_matched ? stoi(str) : 0);
+
+    }
+
+    std::tuple<bool, unsigned int> bui_isint(const std::string& str){
+
+        auto regex_matched = std::regex_match(str, std::regex{"^[\\s]*[\\+]?[0-9]+[\\s]*$"});
+        return std::make_tuple(regex_matched,regex_matched ? stoi(str) : 0);
+
     }
 
 }

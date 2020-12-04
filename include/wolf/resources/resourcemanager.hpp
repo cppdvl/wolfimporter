@@ -15,10 +15,13 @@
 namespace Wolf::Resources {
 
 
-class ResourceManager : public Wolf::Pttrn::Singleton<Wolf::Resources::ResourceManager> {
+    class ResourceManager : public Wolf::Pttrn::Singleton<Wolf::Resources::ResourceManager> {
 
         std::unordered_map<unsigned long, SPResource> midmap{};
         std::unordered_map<std::string, SPResource> maliasmap{};
+
+        SPResource _RetryReference(const std::string& resourceName);
+
 public:
 
         unsigned long AddResource(SPResource spResource, const std::string& alias);
