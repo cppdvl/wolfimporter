@@ -7,6 +7,7 @@ get_filename_component(GLFW_FULLPATH Vendor/glfw ABSOLUTE)
 add_subdirectory(${GLFW_FULLPATH})
 get_filename_component(SPDLOG_FULLPATH Vendor/log ABSOLUTE)
 add_subdirectory(${SPDLOG_FULLPATH})
+get_directory_property(hasParent PARENT_DIRECTORY)
 
 
 include(FetchContent)
@@ -20,7 +21,13 @@ if(NOT json_POPULATED)
     FetchContent_Populate(json)
     add_subdirectory(${json_SOURCE_DIR} ${json_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
+if (hasParent)
+    set (json_INC_DIR ${json_SOURCE_DIR}/include PARENT_SCOPE)
+    set (json_LIB_DIR ${json_BINARY_DIR} PARENT_SCOPE)
+endif()
 
+message (STATUS ${json_SOURCE_DIR} )
+message (STATUS ${json_BINARY_DIR} )
 file(GLOB           VENDORS_SOURCES Vendor/glad/src/glad.c)
 file(GLOB           GUIIMPL_SOURCES Vendor/gui/examples/imgui_impl_glfw.*
                                     Vendor/gui/examples/imgui_impl_opengl3.*
@@ -76,10 +83,19 @@ add_library(${PROJECT_NAME}
         src/wolf/ecs/component/componentfactory.cpp
         include/wolf/ecs/component/componentfactory.hpp)
 
-target_link_libraries(  ${PROJECT_NAME} PRIVATE glfw
-                        ${GLFW_LIBRARIES} ${GLAD_LIBRARIES}
-                        nlohmann_json::nlohmann_json
-                        spdlog)
+list(APPEND TO_LINK_ITEMS
+    glfw
+    ${GLFW_LIBRARIES} 
+    ${GLAD_LIBRARIES}
+    nlohmann_json::nlohmann_json
+    spdlog 
+    )
+
+if (WIN32)
+    list(APPEND TO_LINK_ITEMS -lopengl32)
+endif()
+
+target_link_libraries(  ${PROJECT_NAME} PRIVATE ${TO_LINK_ITEMS})
 target_sources(${PROJECT_NAME} PRIVATE ${FULL_SOURCES_LIST})
 
 list(APPEND ENGINE_HEADERS
@@ -99,7 +115,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 add_definitions(-DGLFW_INCLUDE_NONE)
 
 get_filename_component(ENGINE_RESOURCES_FULLPATH Resources ABSOLUTE)
-get_directory_property(hasParent PARENT_DIRECTORY)
 if(hasParent)
     set(ENGINE_RESOURCES_FULLPATH ${ENGINE_RESOURCES_FULLPATH} PARENT_SCOPE)
 endif()
