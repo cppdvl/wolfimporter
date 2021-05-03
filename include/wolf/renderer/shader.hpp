@@ -1,19 +1,30 @@
 #ifndef SHADER_H
 #define SHADER_H
-
 #include <glad/glad.h>
 #include <glm/glm.hpp>
-
 #include <string>
+#include <map>
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <spdlog/spdlog.h>
 namespace Wolf {
     namespace Renderer {
         class Shader
         {
         private:
+            inline static std::map<unsigned int, Shader*> sID_Shader{};
         public:
+            static Shader* GetShaderByID(unsigned int uiID){
+                auto notfound = sID_Shader.find(uiID) == sID_Shader.end();
+                if (notfound) {
+                    spdlog::critical("{:s} {:d} -- Shader with ID: {:d} not found!!!!", __FILE__, __LINE__, uiID);
+                    return nullptr;
+                } else return sID_Shader[uiID];
+            }
+            ~Shader() {
+                spdlog::critical("The shader is out of the building");
+            }
             Shader() = default;
             Shader(const Shader& rShader) = default;
             Shader& operator= (const Shader& rShader){
@@ -36,7 +47,7 @@ namespace Wolf {
                 vShaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
                 fShaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
                 gShaderFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
-                try 
+                try
                 {
                     // open files
                     vShaderFile.open(vertexPath);
@@ -63,23 +74,31 @@ namespace Wolf {
                 }
                 catch (std::ifstream::failure e)
                 {
-                    std::cout << "ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ" << std::endl;
+                    spdlog::critical(" -- --------------------------------------------------- -- ");
+                    spdlog::critical("{:s} {:d} -- ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ.....", __FILE__, __LINE__);
+                    spdlog::critical("{:s} {:d} -- {:s}", __FILE__, __LINE__, e.what());
                 }
                 const char* vShaderCode = vertexCode.c_str();
                 const char * fShaderCode = fragmentCode.c_str();
                 // 2. compile shaders
                 unsigned int vertex, fragment;
                 // vertex shader
+                spdlog::info(" -- --------------------------------------------------- -- ");
+                spdlog::info(" -- VERTEX SHADER: {:s}", vertexPath);
                 vertex = glCreateShader(GL_VERTEX_SHADER);
                 glShaderSource(vertex, 1, &vShaderCode, NULL);
                 glCompileShader(vertex);
                 checkCompileErrors(vertex, "VERTEX");
                 // fragment Shader
+                spdlog::info(" -- --------------------------------------------------- -- ");
+                spdlog::info(" -- FRAGMENT SHADER: {:s}", fragmentPath);
                 fragment = glCreateShader(GL_FRAGMENT_SHADER);
                 glShaderSource(fragment, 1, &fShaderCode, NULL);
                 glCompileShader(fragment);
                 checkCompileErrors(fragment, "FRAGMENT");
                 // if geometry shader is given, compile geometry shader
+                spdlog::info(" -- --------------------------------------------------- -- ");
+                spdlog::info(" -- GEOMETRY SHADER: {:s}", geometryPath ? geometryPath : "NO GEOMETRY SHADER");
                 unsigned int geometry;
                 if(geometryPath != nullptr)
                 {
@@ -103,6 +122,8 @@ namespace Wolf {
                 if(geometryPath != nullptr)
                     glDeleteShader(geometry);
 
+                sID_Shader[ID] = this;
+
             }
             // activate the shader
             // ------------------------------------------------------------------------
@@ -118,7 +139,7 @@ namespace Wolf {
             }
             // ------------------------------------------------------------------------
             void setInt(const std::string &name, int value) const
-            { 
+            {
                 glUniform1i(glGetUniformLocation(ID, name.c_str()), value); 
             }
             // ------------------------------------------------------------------------
@@ -182,7 +203,13 @@ namespace Wolf {
                     if(!success)
                     {
                         glGetShaderInfoLog(shader, 1024, NULL, infoLog);
-                        std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+                        spdlog::critical("{:s}{:d} -- ERROR::SHADER_COMPILATION_ERROR of type: {:s}", __FILE__, __LINE__, type);
+                        spdlog::critical("{:s}{:d} -- INFOLOG: {:s}", __FILE__, __LINE__, infoLog);
+                    }
+                    else
+                    {
+                        spdlog::info(" -- COMPILE SUCCESS ----------------------------------- -- ");
+
                     }
                 }
                 else
@@ -191,9 +218,17 @@ namespace Wolf {
                     if(!success)
                     {
                         glGetProgramInfoLog(shader, 1024, NULL, infoLog);
-                        std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+                        spdlog::critical("{:s}{:d} -- ERROR::PROGRAM_LINKING_ERROR of type: {:s}", __FILE__, __LINE__, type);
+                        spdlog::critical("{:s}{:d} -- INFOLOG: {:s}", __FILE__, __LINE__, infoLog);
+                    }
+                    else
+                    {
+                        spdlog::info(" -- LINKAGE SUCCESS ----------------------------------- -- ");
+
                     }
                 }
+                spdlog::info(" -- --------------------------------------------------- -- ");
+
             }
         };
   
