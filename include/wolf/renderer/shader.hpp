@@ -72,7 +72,7 @@ namespace Wolf {
                         geometryCode = gShaderStream.str();
                     }
                 }
-                catch (std::ifstream::failure e)
+                catch (std::ifstream::failure& e)
                 {
                     spdlog::critical(" -- --------------------------------------------------- -- ");
                     spdlog::critical("{:s} {:d} -- ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ.....", __FILE__, __LINE__);
